@@ -183,8 +183,7 @@
 "ca" = (
 /obj/machinery/porta_turret/ship/nt/pulse{
 	dir = 10;
-	id = "Daggerfall_turrets";
-	faction = ls
+	id = "Daggerfall_turrets"
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/ship/bridge)
@@ -2783,6 +2782,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ship/crew/canteen/kitchen)
+"IC" = (
+/obj/machinery/vending/boozeomat/all_access{
+	all_items_free = 1;
+	max_integrity = 1000;
+	desc = "Undestructable Vendomat Machine, TRY TO BEAT HIM, PUSSY"
+	},
+/turf/closed/wall/mineral/titanium/exterior,
+/area/ship/crew)
 "IX" = (
 /obj/effect/turf_decal/trimline/opaque/deforestblue/line{
 	dir = 5
@@ -4969,7 +4976,7 @@ ud
 ud
 ud
 Nw
-CQ
+IC
 yC
 AA
 GI
