@@ -183,7 +183,8 @@
 "ca" = (
 /obj/machinery/porta_turret/ship/nt/pulse{
 	dir = 10;
-	id = "Daggerfall_turrets"
+	id = "Daggerfall_turrets";
+	pixel_x = -1
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/ship/bridge)
@@ -809,6 +810,14 @@
 /obj/effect/decal/cleanable/confetti,
 /turf/open/floor/plastic,
 /area/ship/crew/canteen/kitchen)
+"kz" = (
+/obj/machinery/turretid/ship{
+	id = "Daggerfall_turrets";
+	pixel_x = 25;
+	pixel_y = -6
+	},
+/turf/closed/wall/mineral/titanium/exterior,
+/area/ship/medical)
 "kN" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/ship/bridge)
@@ -4896,7 +4905,7 @@ AC
 My
 Kb
 qE
-AC
+kz
 JR
 pR
 rX
