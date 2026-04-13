@@ -116,32 +116,17 @@
 /turf/open/floor/plating,
 /area/ship/bridge)
 "es" = (
-/obj/machinery/power/smes/shuttle/precharged{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/opaque/syndiered/filled/line{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/item/clothing/mask/fakemoustache,
 /obj/machinery/door/poddoor/shutters{
-	dir = 4;
-	id = "scengine"
+	id = "kansatsuexit1";
+	name = "Emergency exit";
+	dir = 4
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/ship/engineering)
 "eB" = (
 /obj/machinery/firealarm/directional/north{
 	pixel_y = 29
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
@@ -149,12 +134,6 @@
 /turf/open/floor/plating,
 /area/ship/engineering)
 "eC" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/terminal{
-	dir = 8
-	},
 /obj/effect/turf_decal/industrial/warning{
 	dir = 8
 	},
@@ -200,10 +179,10 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/ship/crew/dorm)
 "fj" = (
-/obj/structure/cable{
-	icon_state = "0-4"
+/obj/machinery/power/shuttle/engine/fueled/plasma{
+	dir = 4
 	},
-/obj/machinery/power/shuttle/engine/electric/premium{
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -385,20 +364,21 @@
 /turf/open/floor/plasteel/dark,
 /area/ship/crew/office)
 "iq" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 5
 	},
 /obj/effect/turf_decal/industrial/warning/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/industrial/warning/corner{
-	dir = 8
+/obj/machinery/button/door{
+	pixel_y = 2;
+	id = "kansatsuexit2";
+	name = "Engine Shutters";
+	pixel_x = -21;
+	req_access = list(50, 10, 5, 1, 20);
+	req_ship_access = 1;
+	dir = 4
 	},
-/obj/machinery/space_heater,
-/obj/machinery/light/directional/west,
 /turf/open/floor/plating,
 /area/ship/engineering)
 "iS" = (
@@ -485,9 +465,6 @@
 /area/ship/bridge)
 "jZ" = (
 /obj/structure/closet/wall/directional/east,
-/obj/item/stack/sheet/mineral/uranium/twenty{
-	amount = 30
-	},
 /obj/item/stack/sheet/mineral/uranium/twenty{
 	amount = 30
 	},
@@ -622,19 +599,10 @@
 /turf/open/floor/carpet/red_gold,
 /area/ship/crew)
 "oh" = (
-/obj/machinery/power/terminal{
-	dir = 8
-	},
 /obj/effect/turf_decal/industrial/warning{
 	dir = 8
 	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
-/obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/plating,
 /area/ship/engineering)
 "oB" = (
@@ -695,6 +663,7 @@
 /obj/item/tank/internals/generic{
 	icon_state = "oxygen_f"
 	},
+/obj/machinery/atmospherics/pipe/simple/orange/hidden,
 /turf/open/floor/plating,
 /area/ship/engineering)
 "qB" = (
@@ -766,6 +735,22 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ship/crew/office)
+"rF" = (
+/obj/effect/turf_decal/trimline/opaque/syndiered/filled/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters{
+	dir = 4;
+	id = "scengine"
+	},
+/turf/open/floor/plating,
+/area/ship/engineering)
 "rN" = (
 /obj/machinery/light/small/directional/south,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -864,9 +849,6 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ship/bridge)
 "tQ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
@@ -918,16 +900,13 @@
 /turf/open/floor/plasteel/white,
 /area/ship/hallway/central)
 "uk" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/ship/engineering)
@@ -1097,17 +1076,14 @@
 /turf/open/floor/plasteel/dark,
 /area/ship/crew/office)
 "yv" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/extinguisher_cabinet/directional/east{
 	pixel_y = 8;
 	pixel_x = 29
+	},
+/obj/machinery/atmospherics/pipe/manifold/orange/hidden{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ship/engineering)
@@ -1122,6 +1098,15 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/cargo)
+"yQ" = (
+/obj/effect/turf_decal/industrial/warning/corner{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ship/engineering)
 "ze" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -1287,16 +1272,22 @@
 	dir = 8;
 	pixel_x = -32
 	},
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/effect/turf_decal/spline/plain/opaque/syndiered{
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
 	dir = 4
+	},
+/obj/item/modular_computer/tablet/preset/advanced{
+	pixel_x = 6
+	},
+/obj/item/modular_computer/tablet/preset/advanced{
+	pixel_x = 3
+	},
+/obj/item/modular_computer/tablet/preset/advanced,
+/obj/item/paper{
+	default_raw_text = "Congratulations on your purchase of Cybersun G-1010 Long Range Communication Tables (Chat client installed seperately)";
+	pixel_x = 5
 	},
 /turf/open/floor/plasteel/dark,
 /area/ship/crew)
@@ -1335,30 +1326,22 @@
 /obj/item/melee/knife/combat,
 /obj/item/clothing/glasses/thermal/syndi,
 /obj/item/clothing/glasses/thermal/syndi,
-/obj/item/card/emag/limited{
-	uses_left = 3
-	},
 /obj/item/gun/energy/plasmacutter/adv,
-/obj/item/toy/plush/goatplushie/angry{
-	name = "goat plushie"
-	},
+/obj/item/card/emag,
 /turf/open/floor/plating,
 /area/ship/crew/office)
 "DN" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/ship/crew/dorm)
 "DQ" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+	dir = 9
+	},
 /turf/open/floor/plating,
 /area/ship/engineering)
 "ET" = (
@@ -1397,6 +1380,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/orange/hidden,
 /turf/open/floor/plating,
 /area/ship/engineering)
 "FK" = (
@@ -1410,6 +1394,15 @@
 	},
 /obj/effect/turf_decal/industrial/warning/corner{
 	dir = 1
+	},
+/turf/open/floor/plating,
+/area/ship/engineering)
+"FL" = (
+/obj/effect/turf_decal/industrial/warning/corner{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ship/engineering)
@@ -1487,11 +1480,16 @@
 /area/ship/crew/dorm)
 "HZ" = (
 /obj/effect/turf_decal/industrial/warning/corner{
-	dir = 1
-	},
-/obj/machinery/firealarm/directional/west,
-/obj/effect/turf_decal/industrial/warning/corner{
 	dir = 8
+	},
+/obj/machinery/button/door{
+	pixel_y = 2;
+	id = "kansatsuexit1";
+	name = "Engine Shutters";
+	pixel_x = -21;
+	req_access = list(50, 10, 5, 1, 20);
+	req_ship_access = 1;
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ship/engineering)
@@ -1500,8 +1498,15 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/turf/open/floor/plating,
+/area/ship/engineering)
+"Im" = (
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "0-4"
+	},
+/obj/machinery/power/shuttle/engine/electric/tech2,
+/obj/structure/window/reinforced{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ship/engineering)
@@ -1549,10 +1554,18 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/white,
 /area/ship/bridge)
-"Kb" = (
-/obj/structure/cable{
-	icon_state = "2-8"
+"JY" = (
+/obj/effect/turf_decal/industrial/warning{
+	dir = 1
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/light/directional/west,
+/turf/open/floor/plating,
+/area/ship/engineering)
+"Kb" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -1561,6 +1574,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/manifold/orange/hidden{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ship/engineering)
@@ -1572,7 +1588,6 @@
 /obj/effect/turf_decal/spline/fancy/transparent/grey{
 	dir = 6
 	},
-/obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/decal/cleanable/oil,
 /obj/machinery/power/ship_gravity,
 /turf/open/floor/plating,
@@ -1966,19 +1981,18 @@
 /obj/structure/sign/departments/engineering,
 /turf/closed/wall/mineral/plastitanium,
 /area/ship/engineering)
+"Wf" = (
+/obj/effect/turf_decal/industrial/warning{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/ship/engineering)
 "Wh" = (
 /obj/structure/table/wood,
-/obj/item/modular_computer/tablet/preset/advanced,
-/obj/item/modular_computer/tablet/preset/advanced{
-	pixel_x = 3
-	},
-/obj/item/modular_computer/tablet/preset/advanced{
-	pixel_x = 6
-	},
-/obj/item/paper{
-	default_raw_text = "Congratulations on your purchase of Cybersun G-1010 Long Range Communication Tables (Chat client installed seperately)";
-	pixel_x = 5
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/carpet/red_gold,
 /area/ship/crew)
@@ -1996,9 +2010,6 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
@@ -2008,10 +2019,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
-	},
+/obj/machinery/atmospherics/pipe/simple/orange/hidden,
 /turf/open/floor/plating,
 /area/ship/engineering)
 "XD" = (
@@ -2032,8 +2040,6 @@
 /obj/item/binoculars,
 /obj/item/melee/classic_baton/telescopic,
 /obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton,
-/obj/item/melee/classic_baton,
 /obj/item/gun/energy/disabler,
 /obj/item/gun/energy/disabler,
 /obj/item/gun/ballistic/automatic/pistol/ringneck/no_mag,
@@ -2042,10 +2048,13 @@
 /obj/item/storage/box/ammo/c10mm_ap,
 /obj/item/ammo_box/magazine/m10mm_ringneck,
 /obj/item/book/granter/martial/cqc,
-/obj/item/camera_bug,
 /obj/item/attachment/silencer,
 /obj/item/storage/box/handcuffs,
-/obj/item/gun/energy/kinetic_accelerator/crossbow,
+/obj/item/binoculars,
+/obj/item/storage/box/ammo/c10mm,
+/obj/item/storage/box/ammo/c10mm,
+/obj/item/storage/box/ammo/c10mm,
+/obj/item/storage/box/ammo/c10mm,
 /turf/open/floor/plasteel/stairs{
 	dir = 4
 	},
@@ -2095,6 +2104,18 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ship/crew)
+"Ye" = (
+/turf/open/floor/engine/hull/reinforced,
+/area/ship/engineering)
+"Ym" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "kansatsuexit2";
+	name = "Emergency exit";
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/ship/engineering)
 "Yp" = (
 /obj/structure/window/reinforced/spawner,
 /obj/structure/rack,
@@ -2119,30 +2140,19 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/storage/backpack/satchel/flat/cthonian,
+/obj/item/storage/backpack/satchel/flat/with_tools,
 /turf/open/floor/plasteel/tech/techmaint,
 /area/ship/cargo)
 "YX" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/ship/bridge)
 "Za" = (
-/obj/machinery/power/smes/shuttle/precharged{
+/obj/effect/turf_decal/industrial/warning,
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/opaque/syndiered/filled/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/industrial/warning/corner,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/door/poddoor/shutters{
-	dir = 4;
-	id = "scengine"
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/plating,
 /area/ship/engineering)
 "Zl" = (
@@ -2157,22 +2167,47 @@
 /obj/machinery/modular_computer/console/preset/command,
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/bridge)
+"Zr" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/opaque/syndiered/filled/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters{
+	dir = 4;
+	id = "scengine"
+	},
+/turf/open/floor/plating,
+/area/ship/engineering)
+"ZK" = (
+/obj/effect/turf_decal/industrial/warning{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/ship/engineering)
 
 (1,1,1) = {"
 wQ
 lg
 wQ
-fj
+Ye
+if
 if
 fj
-fj
-fj
+Im
 if
+Im
 fj
-fj
-fj
+SE
 if
-fj
+Ye
 wQ
 bX
 "}
@@ -2180,15 +2215,15 @@ bX
 wQ
 if
 if
-es
+Ym
 if
 Za
-uA
+Zr
 uA
 if
 uA
-uA
-es
+rF
+JY
 SE
 es
 if
@@ -2200,13 +2235,13 @@ if
 Rj
 oh
 iq
-RG
-RG
+yQ
+ZK
 RG
 mR
 br
-br
-RG
+Wf
+FL
 HZ
 eC
 FK

@@ -1772,7 +1772,7 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/engineering/electrical,
-/obj/item/stack/sheet/mineral/diamond/five,
+/obj/item/stack/sheet/mineral/uranium/five,
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/engineering)
 "Cq" = (
@@ -1948,9 +1948,6 @@
 /obj/item/stamp/syndicate,
 /obj/item/stamp/syndicate/captain{
 	pixel_x = 9
-	},
-/obj/item/folder/documents/syndicate/red{
-	pixel_x = -7
 	},
 /obj/item/paper_bin/carbon{
 	pixel_x = 6;
@@ -2262,8 +2259,8 @@
 /obj/effect/turf_decal/techfloor{
 	dir = 6
 	},
-/obj/machinery/power/port_gen/pacman/mrs,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
+/obj/machinery/power/port_gen/pacman/super,
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/engineering)
 "HV" = (
