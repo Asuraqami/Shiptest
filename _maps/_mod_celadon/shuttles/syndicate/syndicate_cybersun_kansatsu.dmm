@@ -131,7 +131,7 @@
 	dir = 1
 	},
 /obj/machinery/button/door{
-	pixel_y = 2;
+	pixel_y = 6;
 	id = "kansatsuexit2";
 	name = "Engine Shutters";
 	pixel_x = -21;
@@ -802,10 +802,10 @@
 	dir = 8
 	},
 /obj/machinery/button/door{
-	pixel_y = 2;
+	pixel_y = -6;
 	id = "kansatsuexit1";
 	name = "Engine Shutters";
-	pixel_x = -21;
+	pixel_x = -22;
 	req_access = list(50, 10, 5, 1, 20);
 	req_ship_access = 1;
 	dir = 4
