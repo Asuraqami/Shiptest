@@ -746,7 +746,9 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 1
 	},
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	network = list("kansatsu-sossv")
+	},
 /turf/open/floor/plating,
 /area/ship/external)
 "sF" = (
