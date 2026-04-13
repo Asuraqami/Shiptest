@@ -19,18 +19,6 @@
 	dir = 1
 	},
 /area/ship/cargo)
-"br" = (
-/obj/effect/turf_decal/industrial/warning{
-	dir = 8
-	},
-/obj/machinery/power/terminal{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating,
-/area/ship/engineering)
 "bJ" = (
 /obj/machinery/suit_storage_unit/inherit,
 /obj/item/clothing/head/helmet/space/syndicate/white_red,
@@ -50,18 +38,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ship/hallway/central)
-"bN" = (
-/obj/effect/decal/cleanable/oil/streak,
-/obj/structure/reagent_dispensers/watertank,
-/obj/effect/turf_decal/box,
-/obj/effect/turf_decal/spline/fancy/transparent/grey{
-	dir = 5
-	},
-/obj/structure/sign/poster/contraband/smoke{
-	pixel_x = 32
-	},
-/turf/open/floor/plasteel/tech,
-/area/ship/engineering)
 "bX" = (
 /obj/machinery/porta_turret/ship/syndicate/ballistic/light{
 	dir = 10;
@@ -136,27 +112,46 @@
 /turf/open/floor/plating,
 /area/ship/engineering)
 "eB" = (
-/obj/machinery/firealarm/directional/north{
-	pixel_y = 29
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/effect/turf_decal/industrial/warning/corner{
+	dir = 1
+	},
+/obj/machinery/button/door{
+	pixel_y = 2;
+	id = "kansatsuexit2";
+	name = "Engine Shutters";
+	pixel_x = -21;
+	req_access = list(50, 10, 5, 1, 20);
+	req_ship_access = 1;
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "eC" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/extinguisher_cabinet/directional/east{
-	pixel_y = 8;
-	pixel_x = 29
-	},
-/obj/machinery/atmospherics/pipe/manifold/orange/hidden{
+/obj/machinery/light/small/directional/south,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/catwalk/over/plated_catwalk/dark,
-/turf/open/floor/plating,
-/area/ship/engineering)
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/spline/fancy/opaque/syndiered,
+/obj/effect/turf_decal/trimline/opaque/bar/filled/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/opaque/bar/filled/corner,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/camera/autoname{
+	dir = 1;
+	network = list("kansatsu-sossv")
+	},
+/turf/open/floor/plasteel/white,
+/area/ship/hallway/central)
 "eP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -377,8 +372,31 @@
 /turf/open/floor/plasteel/dark,
 /area/ship/crew/office)
 "iq" = (
-/turf/open/floor/engine/hull/reinforced,
-/area/ship/external)
+/obj/structure/closet/wall{
+	name = "emergency rum cabinet";
+	dir = 8;
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/spline/plain/opaque/syndiered{
+	dir = 4
+	},
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("kansatsu-sossv")
+	},
+/obj/item/modular_computer/tablet/preset/advanced{
+	pixel_x = 6
+	},
+/obj/item/modular_computer/tablet/preset/advanced{
+	pixel_x = 3
+	},
+/obj/item/modular_computer/tablet/preset/advanced,
+/obj/item/paper{
+	default_raw_text = "Congratulations on your purchase of Cybersun G-1010 Long Range Communication Tables (Chat client installed seperately)";
+	pixel_x = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ship/crew)
 "iS" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -447,12 +465,11 @@
 /turf/open/floor/plasteel/white,
 /area/ship/crew)
 "jD" = (
-/obj/effect/turf_decal/industrial/warning{
-	dir = 8
+/obj/effect/turf_decal/spline/fancy/opaque/syndiered{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/general/hidden,
-/turf/open/floor/plasteel/tech,
-/area/ship/engineering)
+/turf/open/floor/plasteel/white,
+/area/ship/hallway/central)
 "jZ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -473,10 +490,11 @@
 /turf/open/floor/plating,
 /area/ship/cargo)
 "lg" = (
-/obj/structure/closet/wall/directional/east,
-/obj/item/stack/sheet/mineral/uranium/twenty{
-	amount = 30
+/obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/effect/turf_decal/industrial/warning/corner{
+	dir = 8
 	},
+/obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "lt" = (
@@ -542,7 +560,9 @@
 /obj/effect/turf_decal/spline/fancy/transparent/grey{
 	dir = 1
 	},
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	network = list("kansatsu-sossv")
+	},
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "mR" = (
@@ -676,28 +696,22 @@
 /turf/open/floor/carpet/red_gold,
 /area/ship/crew)
 "ro" = (
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = 8;
-	pixel_y = 5
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
-/obj/structure/curtain,
-/obj/machinery/camera/autoname{
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/machinery/airalarm/directional/north{
-	pixel_x = 5
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
-/obj/machinery/light_switch{
-	pixel_y = 25;
-	pixel_x = -12
-	},
-/obj/item/bikehorn/rubberducky,
-/turf/open/floor/plasteel/freezer,
-/area/ship/crew/toilet)
+/obj/machinery/atmospherics/pipe/simple/orange/hidden,
+/obj/structure/catwalk/over/plated_catwalk/dark,
+/turf/open/floor/plating,
+/area/ship/engineering)
 "rD" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -731,27 +745,12 @@
 /turf/open/floor/plating,
 /area/ship/engineering)
 "rN" = (
-/obj/machinery/light/small/directional/south,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/spline/fancy/opaque/syndiered,
-/obj/effect/turf_decal/trimline/opaque/bar/filled/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/opaque/bar/filled/corner,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/camera/autoname{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
-/area/ship/hallway/central)
+/obj/machinery/light/small/directional/south,
+/turf/open/floor/plasteel/tech,
+/area/ship/engineering)
 "rO" = (
 /obj/machinery/atmospherics/components/binary/pump/on/layer4{
 	dir = 4
@@ -886,10 +885,10 @@
 /turf/open/floor/plasteel/white,
 /area/ship/hallway/central)
 "uk" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
+/obj/structure/closet/wall/directional/east,
+/obj/item/stack/sheet/mineral/uranium/twenty{
+	amount = 30
 	},
-/obj/machinery/light/small/directional/south,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "uA" = (
@@ -1021,19 +1020,17 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/cargo)
 "xF" = (
-/obj/effect/turf_decal/box,
-/obj/effect/turf_decal/industrial/warning/corner{
-	dir = 4
+/obj/machinery/computer/security{
+	network = list("kansatsu-sossv")
 	},
-/obj/structure/table/wood,
-/obj/machinery/microwave{
-	pixel_y = 4;
-	pixel_x = -1
+/obj/effect/turf_decal/spline/plain/opaque/syndiered,
+/obj/effect/turf_decal/spline/plain/opaque/syndiered{
+	dir = 1
 	},
-/obj/machinery/light/directional/west,
-/obj/machinery/camera/autoname,
+/obj/effect/turf_decal/industrial/outline/red,
+/obj/item/radio/intercom/wideband/directional/north,
 /turf/open/floor/plasteel/tech/grid,
-/area/ship/cargo)
+/area/ship/bridge)
 "xT" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/ship/crew)
@@ -1062,13 +1059,11 @@
 /turf/open/floor/plasteel/dark,
 /area/ship/crew/office)
 "yv" = (
-/obj/effect/turf_decal/trimline/opaque/bar,
-/obj/effect/turf_decal/spline/fancy/opaque/syndiered,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
-/area/ship/bridge)
+/turf/open/floor/plasteel/tech,
+/area/ship/engineering)
 "yI" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/autolathe/hacked,
@@ -1109,14 +1104,12 @@
 /turf/open/floor/plasteel/white,
 /area/ship/crew)
 "zh" = (
-/obj/machinery/computer/security,
-/obj/effect/turf_decal/spline/plain/opaque/syndiered,
-/obj/effect/turf_decal/spline/plain/opaque/syndiered{
+/obj/effect/turf_decal/trimline/opaque/bar,
+/obj/effect/turf_decal/spline/fancy/opaque/syndiered,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/effect/turf_decal/industrial/outline/red,
-/obj/item/radio/intercom/wideband/directional/north,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/plasteel/dark,
 /area/ship/bridge)
 "zJ" = (
 /obj/effect/turf_decal/spline/plain/opaque/syndiered,
@@ -1255,30 +1248,19 @@
 /turf/open/floor/plasteel/dark,
 /area/ship/crew/toilet)
 "CW" = (
-/obj/structure/closet/wall{
-	name = "emergency rum cabinet";
-	dir = 8;
-	pixel_x = -32
+/obj/effect/turf_decal/spline/fancy/opaque/syndiered{
+	dir = 9
 	},
-/obj/effect/turf_decal/spline/plain/opaque/syndiered{
+/obj/machinery/turretid/ship{
+	pixel_y = 24;
+	id = "kansatsu_turrets"
+	},
+/obj/effect/turf_decal/trimline/opaque/bar,
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
-	},
-/obj/machinery/camera/autoname{
-	dir = 4
-	},
-/obj/item/modular_computer/tablet/preset/advanced{
-	pixel_x = 6
-	},
-/obj/item/modular_computer/tablet/preset/advanced{
-	pixel_x = 3
-	},
-/obj/item/modular_computer/tablet/preset/advanced,
-/obj/item/paper{
-	default_raw_text = "Congratulations on your purchase of Cybersun G-1010 Long Range Communication Tables (Chat client installed seperately)";
-	pixel_x = 5
 	},
 /turf/open/floor/plasteel/dark,
-/area/ship/crew)
+/area/ship/bridge)
 "DG" = (
 /obj/machinery/advanced_airlock_controller{
 	pixel_x = -27
@@ -1350,23 +1332,17 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/bridge)
 "Fr" = (
-/obj/machinery/atmospherics/components/unary/portables_connector,
-/obj/effect/turf_decal/industrial/warning/corner{
-	dir = 8
+/obj/machinery/porta_turret/ship/syndicate/ballistic/light{
+	dir = 9;
+	id = "kansatsu_turrets"
 	},
-/obj/machinery/portable_atmospherics/canister,
-/turf/open/floor/plasteel/tech,
-/area/ship/engineering)
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ship/bridge)
 "FK" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/light/directional/east,
-/obj/effect/turf_decal/spline/fancy/transparent/grey{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
+/obj/effect/turf_decal/industrial/warning{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "FL" = (
@@ -1450,21 +1426,16 @@
 /turf/open/floor/plasteel/white,
 /area/ship/crew/dorm)
 "HZ" = (
-/obj/structure/cable{
-	icon_state = "1-4"
+/obj/effect/decal/cleanable/oil/streak,
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/spline/fancy/transparent/grey{
+	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 8
+/obj/structure/sign/poster/contraband/smoke{
+	pixel_x = 32
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/orange/hidden,
-/obj/structure/catwalk/over/plated_catwalk/dark,
-/turf/open/floor/plating,
+/turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "Ig" = (
 /obj/effect/turf_decal/industrial/warning{
@@ -1498,12 +1469,17 @@
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "IN" = (
-/obj/machinery/porta_turret/ship/syndicate/ballistic/light{
-	dir = 9;
-	id = "kansatsu_turrets"
+/obj/machinery/light/directional/east,
+/obj/effect/turf_decal/spline/fancy/transparent/grey{
+	dir = 4
 	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ship/bridge)
+/obj/effect/turf_decal/industrial/outline/yellow,
+/obj/machinery/power/smes/engineering,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plasteel/tech,
+/area/ship/engineering)
 "JA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1523,17 +1499,41 @@
 /turf/open/floor/plasteel/white,
 /area/ship/bridge)
 "JY" = (
-/obj/effect/turf_decal/spline/fancy/opaque/syndiered{
-	dir = 1
+/obj/effect/turf_decal/box,
+/obj/machinery/light/directional/east,
+/obj/effect/turf_decal/spline/fancy/transparent/grey{
+	dir = 4
 	},
-/turf/open/floor/plasteel/white,
-/area/ship/hallway/central)
-"Kb" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
 	dir = 8
 	},
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
+"Kb" = (
+/obj/machinery/shower{
+	dir = 8;
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/structure/curtain,
+/obj/machinery/camera/autoname{
+	dir = 8;
+	network = list("kansatsu-sossv")
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/machinery/airalarm/directional/north{
+	pixel_x = 5
+	},
+/obj/machinery/light_switch{
+	pixel_y = 25;
+	pixel_x = -12
+	},
+/obj/item/bikehorn/rubberducky,
+/turf/open/floor/plasteel/freezer,
+/area/ship/crew/toilet)
 "KN" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -1546,7 +1546,8 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/camera/autoname{
 	dir = 1;
-	pixel_x = -9
+	pixel_x = -9;
+	network = list("kansatsu-sossv")
 	},
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
@@ -1571,30 +1572,18 @@
 /turf/open/floor/plasteel/white,
 /area/ship/bridge)
 "Ma" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -20;
-	pixel_y = -11
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/extinguisher_cabinet/directional/east{
+	pixel_y = 8;
+	pixel_x = 29
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/machinery/camera/autoname{
+/obj/machinery/atmospherics/pipe/manifold/orange/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/trimline/opaque/bar/filled/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/spline/fancy/opaque/syndiered{
-	dir = 9
-	},
-/obj/effect/turf_decal/spline/fancy/opaque/syndiered{
-	dir = 5
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/firealarm/directional/west,
-/turf/open/floor/plasteel/white,
-/area/ship/bridge)
+/obj/structure/catwalk/over/plated_catwalk/dark,
+/turf/open/floor/plating,
+/area/ship/engineering)
 "Mv" = (
 /obj/effect/turf_decal/arrows{
 	dir = 4
@@ -1642,33 +1631,40 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/cargo)
 "Nv" = (
-/obj/machinery/atmospherics/pipe/simple/general/hidden{
-	dir = 5
+/obj/machinery/firealarm/directional/north{
+	pixel_y = 29
 	},
-/obj/effect/turf_decal/industrial/warning/corner{
-	dir = 1
-	},
-/obj/machinery/button/door{
-	pixel_y = 2;
-	id = "kansatsuexit2";
-	name = "Engine Shutters";
-	pixel_x = -21;
-	req_access = list(50, 10, 5, 1, 20);
-	req_ship_access = 1;
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "Od" = (
-/obj/structure/window/reinforced/spawner,
-/obj/effect/turf_decal/box,
-/obj/structure/railing{
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -20;
+	pixel_y = -11
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("kansatsu-sossv")
+	},
+/obj/effect/turf_decal/trimline/opaque/bar/filled/corner{
 	dir = 8
 	},
-/obj/machinery/light/small/directional/east,
-/obj/structure/tank_dispenser/oxygen,
-/turf/open/floor/plasteel/tech/grid,
-/area/ship/cargo)
+/obj/effect/turf_decal/spline/fancy/opaque/syndiered{
+	dir = 9
+	},
+/obj/effect/turf_decal/spline/fancy/opaque/syndiered{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/firealarm/directional/west,
+/turf/open/floor/plasteel/white,
+/area/ship/bridge)
 "Oe" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -1803,19 +1799,17 @@
 /turf/open/floor/plasteel/dark,
 /area/ship/bridge)
 "Rj" = (
-/obj/effect/turf_decal/spline/fancy/opaque/syndiered{
-	dir = 9
+/obj/machinery/power/terminal,
+/obj/effect/turf_decal/box,
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
-/obj/machinery/turretid/ship{
-	pixel_y = 24;
-	id = "kansatsu_turrets"
+/obj/machinery/power/port_gen/pacman/super,
+/obj/structure/sign/poster/contraband/energy_swords{
+	pixel_x = 31
 	},
-/obj/effect/turf_decal/trimline/opaque/bar,
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/ship/bridge)
+/turf/open/floor/plasteel/tech,
+/area/ship/engineering)
 "RC" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/spline/fancy/opaque/syndiered{
@@ -1895,15 +1889,15 @@
 /turf/open/floor/plasteel/white,
 /area/ship/hallway/central)
 "Up" = (
-/obj/machinery/light/directional/east,
-/obj/effect/turf_decal/spline/fancy/transparent/grey{
-	dir = 4
-	},
-/obj/effect/turf_decal/industrial/outline/yellow,
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/effect/turf_decal/spline/fancy/transparent/grey{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/oil,
+/obj/machinery/power/ship_gravity,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "Ur" = (
@@ -1964,15 +1958,12 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/ship/engineering)
 "Wf" = (
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable{
-	icon_state = "0-8"
+/obj/effect/turf_decal/industrial/warning{
+	dir = 8
 	},
-/obj/effect/turf_decal/spline/fancy/transparent/grey{
-	dir = 6
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+	dir = 8
 	},
-/obj/effect/decal/cleanable/oil,
-/obj/machinery/power/ship_gravity,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "Wh" = (
@@ -2035,36 +2026,15 @@
 	},
 /area/ship/bridge)
 "XQ" = (
-/obj/item/clothing/neck/stethoscope{
-	pixel_x = 9;
-	pixel_y = -15
+/obj/structure/window/reinforced/spawner,
+/obj/effect/turf_decal/box,
+/obj/structure/railing{
+	dir = 8
 	},
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/item/stack/tile/plasteel/dark{
-	pixel_x = -11;
-	pixel_y = -16
-	},
-/obj/item/crowbar{
-	pixel_x = -8;
-	pixel_y = -11
-	},
-/obj/machinery/light/small/directional/north,
-/obj/machinery/camera/autoname,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/light_switch{
-	pixel_y = 25;
-	pixel_x = -12
-	},
-/obj/machinery/firealarm/directional/north{
-	pixel_y = 29;
-	pixel_x = 10
-	},
-/turf/open/floor/plasteel/dark,
-/area/ship/crew/office)
+/obj/machinery/light/small/directional/east,
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/plasteel/tech/grid,
+/area/ship/cargo)
 "XW" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -2130,17 +2100,21 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/ship/bridge)
 "Za" = (
-/obj/machinery/power/terminal,
 /obj/effect/turf_decal/box,
-/obj/structure/cable{
-	icon_state = "0-2"
+/obj/effect/turf_decal/industrial/warning/corner{
+	dir = 4
 	},
-/obj/machinery/power/port_gen/pacman/super,
-/obj/structure/sign/poster/contraband/energy_swords{
-	pixel_x = 31
+/obj/structure/table/wood,
+/obj/machinery/microwave{
+	pixel_y = 4;
+	pixel_x = -1
 	},
-/turf/open/floor/plasteel/tech,
-/area/ship/engineering)
+/obj/machinery/light/directional/west,
+/obj/machinery/camera/autoname{
+	network = list("kansatsu-sossv")
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ship/cargo)
 "Zl" = (
 /obj/effect/turf_decal/spline/plain/opaque/syndiered{
 	dir = 6
@@ -2170,14 +2144,38 @@
 /turf/open/floor/plating,
 /area/ship/engineering)
 "ZK" = (
-/obj/effect/turf_decal/industrial/warning{
-	dir = 8
+/obj/item/clothing/neck/stethoscope{
+	pixel_x = 9;
+	pixel_y = -15
 	},
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 8
+/obj/structure/chair/office{
+	dir = 4
 	},
-/turf/open/floor/plasteel/tech,
-/area/ship/engineering)
+/obj/item/stack/tile/plasteel/dark{
+	pixel_x = -11;
+	pixel_y = -16
+	},
+/obj/item/crowbar{
+	pixel_x = -8;
+	pixel_y = -11
+	},
+/obj/machinery/light/small/directional/north,
+/obj/machinery/camera/autoname{
+	network = list("kansatsu-sossv")
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/light_switch{
+	pixel_y = 25;
+	pixel_x = -12
+	},
+/obj/machinery/firealarm/directional/north{
+	pixel_y = 29;
+	pixel_x = 10
+	},
+/turf/open/floor/plasteel/dark,
+/area/ship/crew/office)
 
 (1,1,1) = {"
 wQ
@@ -2199,9 +2197,9 @@ wQ
 "}
 (2,1,1) = {"
 wQ
-IN
+Fr
 wQ
-iq
+wQ
 if
 if
 Zr
@@ -2211,7 +2209,7 @@ uA
 rF
 if
 if
-iq
+wQ
 wQ
 bX
 "}
@@ -2222,11 +2220,11 @@ if
 Ym
 if
 yQ
-ZK
+Wf
 RG
 mR
-br
-ZK
+RG
+Wf
 FL
 if
 es
@@ -2236,15 +2234,15 @@ if
 (4,1,1) = {"
 wQ
 if
-Fr
-jD
-Nv
+lg
+FK
+eB
 DQ
-Kb
+yv
 XA
 pC
 XA
-Kb
+yv
 DQ
 tQ
 Ig
@@ -2256,17 +2254,17 @@ wQ
 if
 if
 if
-eB
+Nv
 xe
 zO
 Qv
 oh
-HZ
-eC
+ro
+Ma
 Oe
 gW
 eP
-uk
+rN
 if
 "}
 (6,1,1) = {"
@@ -2292,15 +2290,15 @@ wQ
 if
 if
 if
-Za
+Rj
+IN
+uk
 Up
-lg
-Wf
 if
 iS
 VY
-bN
-FK
+HZ
+JY
 Ye
 Lm
 sc
@@ -2328,7 +2326,7 @@ wQ
 wQ
 wQ
 XD
-xF
+Za
 xA
 Qu
 Yp
@@ -2368,8 +2366,8 @@ xo
 Gz
 Nd
 yI
-JY
-rN
+jD
+eC
 DN
 DN
 DN
@@ -2403,11 +2401,11 @@ XD
 vT
 UQ
 BY
-Od
+XQ
 bJ
 Ug
 Xx
-ro
+Kb
 tB
 Xx
 wQ
@@ -2438,7 +2436,7 @@ wQ
 wQ
 xT
 MY
-CW
+iq
 tp
 jp
 ze
@@ -2479,7 +2477,7 @@ Pz
 mT
 BU
 rQ
-XQ
+ZK
 DL
 rX
 wQ
@@ -2548,7 +2546,7 @@ wQ
 wQ
 YX
 Fg
-Ma
+Od
 Lt
 hJ
 YX
@@ -2565,8 +2563,8 @@ wQ
 wQ
 wQ
 YX
+xF
 zh
-yv
 ga
 BD
 YX
@@ -2620,7 +2618,7 @@ wQ
 wQ
 wQ
 YX
-Rj
+CW
 RV
 YX
 wQ
