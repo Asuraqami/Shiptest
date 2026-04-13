@@ -1470,8 +1470,8 @@
 /obj/item/circuitboard/machine/shuttle/engine/electric/premium
 	build_path = /obj/machinery/power/shuttle/engine/electric/premium
 	def_components = list(
-		/obj/item/stock_parts/capacitor = /obj/item/stock_parts/capacitor/super,
-		/obj/item/stock_parts/micro_laser = /obj/item/stock_parts/micro_laser/ultra
+		/obj/item/stock_parts/capacitor = /obj/item/stock_parts/capacitor/adv, // [CELADON-EDIT] Original: obj/item/stock_parts/capacitor = /obj/item/stock_parts/capacitor/super,
+		/obj/item/stock_parts/micro_laser = /obj/item/stock_parts/micro_laser/high //[CELADON-EDIT] Original: obj/item/stock_parts/micro_laser/ultra
 		)
 
 /obj/item/circuitboard/machine/shuttle/engine/expulsion
