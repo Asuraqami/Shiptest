@@ -45,9 +45,8 @@
 /turf/open/floor/plasteel/white,
 /area/ship/bridge)
 "gZ" = (
-/obj/machinery/porta_turret/ship/solfed/heavy{
-	dir = 10;
-	id = "vespa_turrets"
+/obj/machinery/porta_turret/ship/solfed/light{
+	dir = 10
 	},
 /turf/closed/wall/mineral/titanium,
 /area/ship/bridge)
@@ -160,9 +159,8 @@
 /turf/open/floor/plasteel/white,
 /area/ship/bridge)
 "tv" = (
-/obj/machinery/porta_turret/ship/solfed/heavy{
-	dir = 5;
-	id = "vespa_turrets"
+/obj/machinery/porta_turret/ship/solfed/light{
+	dir = 5
 	},
 /turf/closed/wall/mineral/titanium,
 /area/ship/bridge)
@@ -241,9 +239,6 @@
 /turf/open/floor/plating,
 /area/ship/bridge)
 "Am" = (
-/obj/machinery/power/smes/engineering{
-	charge = 4e+006
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -254,6 +249,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced/survival_pod,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plasteel/lightdark,
 /area/ship/bridge)
 "AH" = (
@@ -359,9 +355,8 @@
 /turf/open/floor/plasteel/patterned/brushed,
 /area/ship/bridge)
 "DX" = (
-/obj/machinery/porta_turret/ship/solfed/heavy{
-	dir = 6;
-	id = "vespa_turrets"
+/obj/machinery/porta_turret/ship/solfed/light{
+	dir = 6
 	},
 /turf/closed/wall/mineral/titanium,
 /area/ship/bridge)
@@ -419,9 +414,8 @@
 /turf/open/floor/plasteel/white,
 /area/ship/bridge)
 "Lc" = (
-/obj/machinery/porta_turret/ship/solfed/heavy{
-	dir = 9;
-	id = "vespa_turrets"
+/obj/machinery/porta_turret/ship/solfed/light{
+	dir = 9
 	},
 /turf/closed/wall/mineral/titanium,
 /area/ship/bridge)
@@ -439,10 +433,6 @@
 /area/ship/bridge)
 "Nn" = (
 /obj/item/paper_bin{
-	pixel_x = -7;
-	pixel_y = 3
-	},
-/obj/item/folder/solgov{
 	pixel_x = -7;
 	pixel_y = 3
 	},

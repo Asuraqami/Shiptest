@@ -238,8 +238,8 @@
 /obj/structure/curtain/cloth{
 	color = "#2d2a4e"
 	},
-/obj/item/bedsheet/solgov,
 /obj/machinery/light/directional/south,
+/obj/item/bedsheet/solfed,
 /turf/open/floor/suns/hatch/walnut,
 /area/ship/crew/dorm)
 "bS" = (
@@ -458,18 +458,13 @@
 /area/ship/cargo)
 "fa" = (
 /obj/machinery/suit_storage_unit/inherit,
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/suit/space/hardsuit/solgov{
-	slowdown = 0.1;
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 20, "bomb" = 60, "bio" = 100, "rad" = 60, "fire" = 90, "acid" = 75);
-	name = "lightweight SolFed hardsuit";
-	desc = "A lightly armored spaceproof suit. A powered exoskeleton keeps the suit light and mobile. This one is specially issued to SolFed Expeditionary Corps, and is designed to be even more mobile that its' twin brother."
-	},
 /obj/item/tank/internals/emergency_oxygen/double,
 /obj/machinery/camera/autoname{
 	dir = 6
 	},
 /obj/machinery/newscaster/directional/north,
+/obj/item/clothing/suit/space/hardsuit/solfed,
+/obj/item/clothing/mask/gas/solfed,
 /turf/open/floor/wood/cold,
 /area/ship/crew/dorm/captain)
 "fd" = (
@@ -1321,11 +1316,11 @@
 /obj/machinery/suit_storage_unit/inherit,
 /obj/item/clothing/suit/space/hardsuit/solgov,
 /obj/item/tank/internals/emergency_oxygen/double,
-/obj/item/clothing/mask/gas/sechailer,
 /obj/structure/window/reinforced/tinted{
 	dir = 4;
 	color = "#d727f2"
 	},
+/obj/item/clothing/mask/gas/solfed,
 /turf/open/floor/wood/walnut,
 /area/ship/bridge)
 "nb" = (
@@ -1500,10 +1495,6 @@
 "oi" = (
 /obj/structure/chair/sofa/brown/left/directional,
 /obj/machinery/light/small/directional/north,
-/obj/item/toy/plush/celadon/kira{
-	pixel_x = -2;
-	pixel_y = 2
-	},
 /turf/open/floor/carpet/black,
 /area/ship/crew)
 "ol" = (
@@ -2268,9 +2259,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ship/hallway/aft)
 "un" = (
-/obj/machinery/power/shuttle/engine/electric{
-	dir = 4
-	},
 /obj/effect/turf_decal/industrial/warning{
 	dir = 8
 	},
@@ -2278,6 +2266,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/light/floor,
+/obj/machinery/power/shuttle/engine/electric/tech1,
 /turf/open/floor/engine/hull,
 /area/ship/engineering)
 "uA" = (
@@ -2448,15 +2437,13 @@
 /turf/open/floor/carpet/purple,
 /area/ship/bridge)
 "wt" = (
-/obj/machinery/power/shuttle/engine/electric{
-	dir = 4
-	},
 /obj/effect/turf_decal/industrial/warning{
 	dir = 8
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/shuttle/engine/electric/tech1,
 /turf/open/floor/engine/hull,
 /area/ship/engineering)
 "wv" = (
@@ -3597,7 +3584,6 @@
 	populate = 0;
 	anchored = 1
 	},
-/obj/item/pickaxe/drill/jackhammer,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/radio{
 	icon_state = "sec_radio"
@@ -3616,6 +3602,7 @@
 	},
 /obj/item/clothing/glasses/meson/night,
 /obj/item/gps/mining,
+/obj/item/pickaxe/mini,
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/security/armory)
 "HM" = (
@@ -3630,7 +3617,6 @@
 	populate = 0;
 	anchored = 1
 	},
-/obj/item/pickaxe/drill/jackhammer,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/radio{
 	icon_state = "sec_radio"
@@ -3650,6 +3636,7 @@
 /obj/item/clothing/glasses/meson/night,
 /obj/machinery/light/directional/north,
 /obj/item/gps/mining,
+/obj/item/pickaxe/mini,
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/security/armory)
 "HP" = (
@@ -5284,12 +5271,12 @@
 /area/ship/crew/canteen)
 "XN" = (
 /obj/structure/bed,
-/obj/item/bedsheet/solgov,
 /obj/structure/curtain/cloth{
 	color = "#2d2a4e"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/bedsheet/solfed,
 /turf/open/floor/suns/hatch/walnut,
 /area/ship/crew/dorm)
 "XW" = (
@@ -5403,6 +5390,7 @@
 	dir = 1
 	},
 /obj/machinery/light/dim/directional/north,
+/obj/item/research_notes/loot/medium,
 /turf/open/floor/mineral/titanium/tiled/purple,
 /area/ship/general/science/rnd)
 "ZN" = (
