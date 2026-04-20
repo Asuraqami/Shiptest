@@ -179,9 +179,11 @@
 					"packs" = list()
 				)
 			// Добавляем товар в группу
+			// Faction & Blackmarket Modify
+			var/modified_cost = round(P.cost * SSeconomy.get_faction_price_multiplier(faction))
 			supply_pack_data[P.category]["packs"] += list(list(
 				"name" = P.name,
-				"cost" = P.cost,
+				"cost" = modified_cost,
 				"id" = pack,
 				"desc" = P.desc || P.name // If there is a description, use it. Otherwise use the pack's name.
 			))
@@ -203,9 +205,11 @@
 					"packs" = list()
 				)
 			// Добавляем товар в группу
+			//Faction & Blackmarket Modify
+			var/modified_cost = round(P.cost * SSeconomy.get_faction_price_multiplier(faction))
 			data["supplies"][P.category]["packs"] += list(list(
 				"name" = P.name,
-				"cost" = P.cost,
+				"cost" = modified_cost,
 				"id" = pack,
 				"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
 				// "small_item" = P.small_item,
@@ -251,6 +255,43 @@
 		charge_account = B
 	generate_pack_data()
 
+// Faction & Blackmarket Modify
+/obj/machinery/computer/cargo/faction/generate_pack_data()
+	supply_pack_data = list()
+	var/multiplier = 1.0
+	var/datum/faction/faction_type = null
+
+	// Определяем тип фракции по типу консоли
+	if(istype(src, /obj/machinery/computer/cargo/faction/syndicate))
+		faction_type = /datum/faction/syndicate
+	else if(istype(src, /obj/machinery/computer/cargo/faction/inteq))
+		faction_type = /datum/faction/inteq
+	else if(istype(src, /obj/machinery/computer/cargo/faction/solfed))
+		faction_type = /datum/faction/solgov
+	else if(istype(src, /obj/machinery/computer/cargo/faction/independent))
+		faction_type = /datum/faction/independent
+	else if(istype(src, /obj/machinery/computer/cargo/faction/nanotrasen))
+		faction_type = /datum/faction/nt
+
+	if(faction_type)
+		multiplier = SSeconomy.get_faction_price_multiplier(faction_type)
+
+	for(var/pack in SSshuttle.supply_packs)
+		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]
+		if(!supply_pack_data[P.category])
+			supply_pack_data[P.category] = list(
+				"name" = P.category,
+				"packs" = list()
+			)
+		var/modified_cost = round(P.cost * multiplier)
+		supply_pack_data[P.category]["packs"] += list(list(
+			"name" = P.name,
+			"cost" = modified_cost,
+			"id" = pack,
+			"desc" = P.desc || P.name
+		))
+// [/CELADON-ADD]
+
 /obj/machinery/computer/cargo/faction/reconnect(obj/docking_port/mobile/port)
 	if(!port)
 		var/area/ship/current_area = get_area(src)
@@ -269,23 +310,6 @@
 		if(!charge_account)
 			reconnect()
 
-/obj/machinery/computer/cargo/faction/generate_pack_data()
-	supply_pack_data = list()
-	for(var/pack in SSshuttle.supply_packs)
-		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]
-		if(!supply_pack_data[P.category])
-			supply_pack_data[P.category] = list(
-				"name" = P.category,
-				"packs" = list()
-			)
-
-		supply_pack_data[P.category]["packs"] += list(list(
-			"name" = P.name,
-			"cost" = P.cost,
-			"id" = pack,
-			"desc" = P.desc || P.name // If there is a description, use it. Otherwise use the pack's name.
-		))
-
 /*
 	MARK: Syndicate
 */
@@ -303,7 +327,6 @@
 	podType = /obj/structure/closet/supplypod/syndicate
 
 	charge_account = ACCOUNT_SYN
-
 
 /obj/machinery/computer/cargo/faction/syndicate/generate_pack_data()
 	supply_pack_data = generate_faction_pack_data(/datum/faction/syndicate)

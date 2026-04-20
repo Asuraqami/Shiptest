@@ -1,4 +1,5 @@
 /*
+Faction & Blackmarket Modify
 Межфракционное влияние внутри раунда
 Внутри находятся сценарии сообщений, проки изменения цен и блокировки кораблей.
 Файл неразрывно связан с encryptor_terminal.dm
@@ -99,7 +100,7 @@ GLOBAL_LIST_EMPTY(faction_message_configs)
 		var/direction = up ? "увеличены" : "снижены"
 		return "Экономические флуктуации затронули [faction_name]: цены [direction] на [percent]%."
 	var/list/messages = up ? cfg["messages_up"] : cfg["messages_down"]
-	return replacetext(pick(messages), "%PERCENT%", "[percent]")
+	return replacetext(pick(messages), "%PERCENT%", "[percent]%")
 
 /proc/generate_announce_title(faction_type)
 	var/list/cfg = GLOB.faction_message_configs[faction_type]
@@ -124,15 +125,9 @@ GLOBAL_LIST_EMPTY(faction_message_configs)
 		return
 
 	if(faction_type == "blackmarket")
-		if(istype(SSeconomy) && hascall(SSeconomy, "adjust_blackmarket_price_multiplier"))
-			call(SSeconomy, "adjust_blackmarket_price_multiplier")(modifier_delta)
-		else
-			log_game("ERROR: SSeconomy.adjust_blackmarket_price_multiplier not found!")
+		SSeconomy.adjust_blackmarket_price_multiplier(modifier_delta)
 	else
-		if(istype(SSeconomy) && hascall(SSeconomy, "adjust_faction_price_multiplier"))
-			call(SSeconomy, "adjust_faction_price_multiplier")(faction_type, modifier_delta)
-		else
-			log_game("ERROR: SSeconomy.adjust_faction_price_multiplier not found!")
+		SSeconomy.adjust_faction_price_multiplier(faction_type, modifier_delta)
 
 	if(do_announce)
 		var/final_announce = generate_economic_shift_message(faction_type, modifier_delta)
@@ -141,7 +136,7 @@ GLOBAL_LIST_EMPTY(faction_message_configs)
 
 	log_game("Economic shift: Faction=[faction_type] Delta=[modifier_delta] Announce=[do_announce]")
 
-// MARK: Кибер-саботаж который блокирует один из кораблей протвника внутри раунда на 20 минут.
+// MARK: Кибер-саботаж который блокирует один из кораблей противника внутри раунда на 20 минут.
 
 /proc/clear_diplomatic_blacklist(datum/overmap/ship/controlled/ship, datum/overmap/outpost/target_outpost)
 	if(QDELETED(ship) || QDELETED(target_outpost))
@@ -150,7 +145,7 @@ GLOBAL_LIST_EMPTY(faction_message_configs)
 	priority_announce("Технические работы завершены. Ограничения на стыковку для [ship.name] сняты.", sender_override = "Outpost Administration Announce")
 	log_game("Diplomatic blacklist cleared: [ship.name] at [target_outpost.name]")
 
-/proc/trigger_cyber_sabotage(initiator_faction)
+/proc/trigger_cybersabotage(initiator_faction)
 	if(!initiator_faction)
 		return FALSE
 	var/list/cfg = GLOB.faction_message_configs[initiator_faction]
@@ -180,7 +175,7 @@ GLOBAL_LIST_EMPTY(faction_message_configs)
 		return FALSE
 	var/reason = "Стыковка была временно приостановлена из-за кибер-атаки. Расчетное время до устранения неполадок: 20 минут."
 	victim_ship.blacklisted[target_outpost] = reason
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(clear_diplomatic_blacklist), victim_ship, target_outpost), 2 MINUTES, TIMER_STOPPABLE|TIMER_DELETE_ME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(clear_diplomatic_blacklist), victim_ship, target_outpost), 20 MINUTES, TIMER_STOPPABLE|TIMER_DELETE_ME)
 	var/initiator_name = get_faction_display_name(initiator_faction)
 	var/announce_text = "Наши системы безопасности подверглись кибератаке. Временно некоторые суда [target_faction_name] не могут стыковаться в порту [target_outpost.name]. Наши специалисты уже работают над этим; технические работы будут завершены через 20 минут."
 	priority_announce(announce_text, sender_override = "Outpost Administration Announce")

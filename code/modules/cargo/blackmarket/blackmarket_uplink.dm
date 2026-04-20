@@ -83,6 +83,17 @@
 		if(market.available_items[viewing_category])
 			for(var/datum/blackmarket_item/I in market.available_items[viewing_category])
 				if(I.available)
+					// [CELADON-ADD] - Faction & Blackmarket Modify
+					var/display_cost = round(I.cost * SSeconomy.get_blackmarket_price_multiplier())
+					data["items"] += list(list(
+						"id" = I.type,
+						"name" = I.name,
+						"cost" = display_cost,
+						"amount" = I.stock == INFINITY ? "INF" : I.stock,
+						"desc" = I.desc || I.name
+					))
+					// [/CELADON-ADD]
+					/* ORIGINAL
 					data["items"] += list(list(
 						"id" = I.type,
 						"name" = I.name,
@@ -90,6 +101,7 @@
 						"amount" = I.stock == INFINITY ? "INF" : I.stock,
 						"desc" = I.desc || I.name
 					))
+					*/
 	return data
 
 /obj/item/blackmarket_uplink/ui_static_data(mob/user)

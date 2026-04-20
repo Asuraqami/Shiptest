@@ -1,11 +1,12 @@
 /*!
+Faction & Blackmarket Modify
 Зашифрованный терминал, принимающий фракционные документы.
 Влияет на экономику или вызывает дипломатические инциденты.
 Файл неразрывно связан с economic_faction_blackmarket.dm
  */
 
 #define ENCRYPTOR_COOLDOWN (5 SECONDS) // Время через которое терминал вновь сможет кушать документы
-#define ENCRYPTOR_ACTIVATION_DELAY (5 SECONDS) // Время через которое произойдет анонс после вставления документов
+#define ENCRYPTOR_ACTIVATION_DELAY (30 SECONDS) // Время через которое произойдет анонс после вставления документов
 
 // MARK: - Вспомогательный прок определения фракции документа
 
@@ -119,79 +120,93 @@
 /obj/machinery/encrypted_terminal/syndicate
 	accepted_documents = list(/obj/item/documents/nanotrasen, /obj/item/documents/solfed)
 
-/obj/machinery/encrypted_terminal/syndicate/choose_effect(obj/item/I)
+/obj/machinery/encrypted_terminal/syndicate/choose_effect()
+	// 20% шанс на дипломатический инцидент вместо экономического
 	if(prob(20))
-		if(trigger_cyber_sabotage(/datum/faction/syndicate))
+		if(trigger_cybersabotage(/datum/faction/syndicate))
 			return FALSE
-	if(prob(30))
-		target_faction = /datum/faction/syndicate
-		modifier_delta = -0.1
-	else
+
+	// 25% шанс на снижение цен (свои или чёрный рынок)
+	if(prob(25))
 		if(prob(50))
-			target_faction = /datum/faction/nt
+			target_faction = "blackmarket"
+			modifier_delta = -0.05
 		else
-			target_faction = /datum/faction/solgov
-		modifier_delta = 0.15
+			target_faction = /datum/faction/syndicate
+			modifier_delta = -0.1
+		return TRUE
+
+	// 75% шанс на повышение цен врагов (NT или SolFed)
+	if(prob(50))
+		target_faction = /datum/faction/nt
+	else
+		target_faction = /datum/faction/solgov
+	modifier_delta = 0.15
 	return TRUE
 
 /obj/machinery/encrypted_terminal/nanotrasen
 	accepted_documents = list(/obj/item/documents/syndicate)
 
-/obj/machinery/encrypted_terminal/nanotrasen/choose_effect(obj/item/I)
+/obj/machinery/encrypted_terminal/nanotrasen/choose_effect()
 	if(prob(20))
-		if(trigger_cyber_sabotage(/datum/faction/nt))
+		if(trigger_cybersabotage(/datum/faction/nt))
 			return FALSE
-	if(prob(30))
+
+	if(prob(25)) // было 30
 		target_faction = /datum/faction/nt
 		modifier_delta = -0.1
+		return TRUE
+
+	// Отрицательный сценарий: повышение цен Syndicate или blackmarket (уже включает blackmarket)
+	if(prob(50))
+		target_faction = /datum/faction/syndicate
 	else
-		if(prob(50))
-			target_faction = /datum/faction/syndicate
-		else
-			target_faction = "blackmarket"
-		modifier_delta = 0.15
+		target_faction = "blackmarket"
+	modifier_delta = 0.15
 	return TRUE
 
 /obj/machinery/encrypted_terminal/solfed
 	accepted_documents = list(/obj/item/documents/syndicate)
 
-/obj/machinery/encrypted_terminal/solfed/choose_effect(obj/item/I)
+/obj/machinery/encrypted_terminal/solfed/choose_effect()
 	if(prob(20))
-		if(trigger_cyber_sabotage(/datum/faction/solgov))
+		if(trigger_cybersabotage(/datum/faction/solgov))
 			return FALSE
-	if(prob(30))
+
+	if(prob(25)) // было 30
 		target_faction = /datum/faction/solgov
 		modifier_delta = -0.1
+		return TRUE
+
+	// Отрицательный сценарий: повышение цен Syndicate или blackmarket
+	if(prob(50))
+		target_faction = /datum/faction/syndicate
 	else
-		if(prob(50))
-			target_faction = /datum/faction/syndicate
-		else
-			target_faction = "blackmarket"
-		modifier_delta = 0.15
+		target_faction = "blackmarket"
+	modifier_delta = 0.15
 	return TRUE
 
 /obj/machinery/encrypted_terminal/inteq
 	accepted_documents = list(/obj/item/documents/syndicate, /obj/item/documents/nanotrasen, /obj/item/documents/solfed)
 
 /obj/machinery/encrypted_terminal/inteq/choose_effect(obj/item/I)
-	var/doc_faction = get_faction_from_document(I)
 	if(prob(30))
-		// Кибератака от имени заказчика (фракция документа)
-		if(trigger_cyber_sabotage(doc_faction))
+		if(trigger_cybersabotage(/datum/faction/inteq))
 			return FALSE
-	// Экономический сдвиг в зависимости от документа
-	switch(doc_faction)
-		if(/datum/faction/syndicate)
-			target_faction = pick(/datum/faction/nt, /datum/faction/solgov)
-			modifier_delta = 0.15
-		if(/datum/faction/nt)
-			target_faction = /datum/faction/syndicate
-			modifier_delta = 0.15
-		if(/datum/faction/solgov)
-			target_faction = /datum/faction/syndicate
-			modifier_delta = 0.15
-		else
-			return null
+
+	var/list/possible = list(
+		list(/datum/faction/syndicate, 0.15),
+		list(/datum/faction/syndicate, -0.1),
+		list(/datum/faction/solgov, 0.15),
+		list(/datum/faction/solgov, -0.1),
+		list(/datum/faction/nt, 0.15),
+		list(/datum/faction/nt, -0.1),
+		list("blackmarket", 0.1),
+		list("blackmarket", -0.05)
+	)
+	var/list/chosen = pick(possible)
+	target_faction = chosen[1]
+	modifier_delta = chosen[2]
 	return TRUE
 
 /obj/machinery/encrypted_terminal/independent

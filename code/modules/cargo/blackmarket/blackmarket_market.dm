@@ -67,7 +67,14 @@
 	for(var/datum/blackmarket_item/I in available_items[category])
 		if(I.type != item)
 			continue
+		// [CELADON-ADD] - Faction & Blackmarket Modify
+		var/base_item_cost = I.cost
+		var/modified_item_cost = round(base_item_cost * SSeconomy.get_blackmarket_price_multiplier())
+		var/cost = modified_item_cost + shipping[method]
+		// [/CELADON-ADD]
+		/* ORIGINAL
 		var/cost = I.cost + shipping[method]
+		*/
 		// I can't get the cost of the item and shipping in a clean way to the UI, so I have to do this.
 		if(uplink.money < cost)
 			to_chat(user, span_warning("You don't have enough credits in [uplink] for [I] with [method] shipping."))
