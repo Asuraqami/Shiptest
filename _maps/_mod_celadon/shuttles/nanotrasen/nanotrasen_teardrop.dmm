@@ -704,6 +704,12 @@
 /obj/effect/turf_decal/techfloor/orange{
 	dir = 8
 	},
+/obj/machinery/button/door{
+	id = "teardrop_eng";
+	name = "Engine Shutters";
+	pixel_x = -22;
+	dir = 4
+	},
 /turf/open/floor/plasteel/heavymetal/var4,
 /area/ship/engineering)
 "ic" = (
@@ -4647,12 +4653,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ship/medical)
 "YV" = (
-/obj/machinery/button/door{
-	id = "teardrop_eng";
-	name = "Engine Shutters";
-	pixel_x = 31;
-	dir = 8
-	},
 /obj/structure/railing{
 	dir = 1;
 	layer = 2
