@@ -329,8 +329,8 @@
 /obj/item/clothing/suit/hooded/wintercoat/captain,
 /obj/item/clothing/neck/cloak/cap,
 /obj/item/clothing/gloves/color/captain/nt,
-/obj/item/modular_computer/tablet,
 /obj/item/stock_parts/cell/gun/upgraded,
+/obj/item/modular_computer/tablet/preset/advanced,
 /turf/open/floor/carpet/royalblue,
 /area/ship/general/command_crew)
 "cA" = (
@@ -1141,13 +1141,17 @@
 /obj/item/ammo_box/magazine/m9mm_expedition,
 /obj/item/ammo_box/magazine/m9mm_expedition,
 /obj/item/storage/box/ammo/c9mm_ap,
-/obj/item/storage/box/ammo/c9mm_ap,
-/obj/item/storage/box/ammo/c9mm_ap,
 /obj/item/ammo_box/magazine/m9mm_expedition,
 /obj/item/ammo_box/magazine/m9mm_expedition,
 /obj/item/ammo_box/magazine/m9mm_expedition,
 /obj/item/storage/box/ammo/c9mm_ap,
 /obj/item/storage/box/ammo/c9mm_ap,
+/obj/item/stock_parts/cell/gun,
+/obj/item/stock_parts/cell/gun,
+/obj/item/stock_parts/cell/gun,
+/obj/item/stock_parts/cell/gun,
+/obj/item/stock_parts/cell/gun,
+/obj/item/stock_parts/cell/gun,
 /turf/open/floor/plasteel/dark,
 /area/ship/security)
 "hl" = (
@@ -2100,9 +2104,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/shuttle/engine/electric/bad{
-	name = "ion Thruster"
-	},
+/obj/machinery/power/shuttle/engine/electric/tech3,
 /turf/open/floor/plating,
 /area/ship/engineering/engines/starboard)
 "nh" = (
@@ -5939,9 +5941,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/shuttle/engine/electric/bad{
-	name = "ion Thruster"
-	},
+/obj/machinery/power/shuttle/engine/electric/tech3,
 /turf/open/floor/plating,
 /area/ship/engineering/engines/port)
 "JJ" = (
@@ -6659,9 +6659,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/shuttle/engine/electric{
-	name = "tuned ion thruster"
-	},
+/obj/machinery/power/shuttle/engine/electric/tech3,
 /turf/open/floor/plating,
 /area/ship/engineering/engine)
 "OI" = (
@@ -7088,9 +7086,7 @@
 /area/ship/hallway/central)
 "QH" = (
 /obj/machinery/suit_storage_unit/inherit,
-/obj/item/clothing/mask/gas/atmos/captain,
-/obj/item/tank/jetpack/oxygen/captain,
-/obj/item/clothing/suit/space/hardsuit/swat/captain,
+/obj/item/mod/control/pre_equipped/magnate,
 /turf/open/floor/carpet/royalblue,
 /area/ship/general/command_crew)
 "QK" = (
@@ -7339,7 +7335,6 @@
 /obj/effect/turf_decal/trimline/opaque/vired/line,
 /obj/item/storage/box/ammo/c9mm,
 /obj/item/storage/box/ammo/c9mm,
-/obj/item/storage/box/ammo/c9mm_rubber,
 /obj/item/storage/belt/security/full,
 /obj/item/clothing/head/nanotrasen/beret/security,
 /obj/item/clothing/head/nanotrasen/cap/security,
@@ -7360,8 +7355,6 @@
 	},
 /obj/item/ammo_box/magazine/co9mm,
 /obj/item/ammo_box/magazine/co9mm,
-/obj/item/stock_parts/cell/gun,
-/obj/item/stock_parts/cell/gun,
 /obj/item/clothing/mask/gas/vigilitas,
 /obj/item/clothing/suit/armor/hos/trenchcoat,
 /obj/item/clothing/head/beret/sec/officer,
@@ -7848,7 +7841,7 @@
 	pixel_y = -6
 	},
 /obj/item/gun/ballistic/automatic/smg/vector,
-/obj/item/gun/ballistic/automatic/smg/vector,
+/obj/item/gun/energy/e_gun/e_old/smg,
 /turf/open/floor/plasteel/dark,
 /area/ship/security)
 "Ve" = (

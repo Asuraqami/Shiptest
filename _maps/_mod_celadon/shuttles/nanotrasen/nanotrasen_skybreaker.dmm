@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "am" = (
-/obj/structure/sign/nanotrasen{
-	pixel_x = 0;
-	pixel_y = 4
-	},
+/obj/structure/sign/nanotrasen/vigilitas,
 /turf/closed/wall/mineral/titanium/exterior,
 /area/ship/cargo)
 "ar" = (
@@ -42,7 +39,6 @@
 /obj/effect/turf_decal/ntspaceworks_small/left{
 	dir = 4
 	},
-/obj/item/stack/sheet/mineral/plasma/ten,
 /obj/item/stack/sheet/mineral/uranium/five,
 /obj/structure/platform/industrial_alt,
 /obj/structure/closet/toolcloset/empty,
@@ -697,7 +693,7 @@
 /turf/open/floor/plasteel/patterned/cargo_one,
 /area/ship/cargo)
 "hN" = (
-/obj/structure/sign/nanotrasen,
+/obj/structure/sign/nanotrasen/vigilitas,
 /turf/closed/wall/mineral/titanium/exterior,
 /area/ship/security)
 "hR" = (
@@ -829,10 +825,6 @@
 /turf/closed/wall/mineral/titanium/exterior,
 /area/ship/medical)
 "jW" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -31;
-	pixel_y = 0
-	},
 /obj/effect/turf_decal/industrial/warning{
 	dir = 1
 	},
@@ -1295,7 +1287,6 @@
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster,
 /obj/item/mecha_parts/mecha_equipment/generator,
 /obj/item/mecha_ammo/lmg,
-/obj/item/mecha_parts/mecha_equipment/teleporter,
 /turf/open/floor/plasteel/patterned/cargo_one,
 /area/ship/cargo)
 "oI" = (
@@ -1570,11 +1561,7 @@
 /turf/open/floor/plasteel/lightgrey,
 /area/ship/hallway/central)
 "rZ" = (
-/obj/machinery/power/port_gen/pacman,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer2,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/structure/platform/industrial_alt,
 /turf/open/floor/plating,
 /area/ship/general/engineering)
@@ -1748,7 +1735,7 @@
 /turf/open/floor/plasteel/tech,
 /area/ship/cargo)
 "up" = (
-/obj/structure/sign/nanotrasen,
+/obj/structure/sign/nanotrasen/vigilitas,
 /turf/closed/wall/mineral/titanium/exterior,
 /area/ship/bridge)
 "ut" = (
@@ -1935,9 +1922,9 @@
 /turf/open/floor/carpet/nanoweave,
 /area/ship/crew/dorm)
 "wx" = (
-/obj/machinery/porta_turret/ship/nt/pulse{
-	id = "skybreaker_turrets";
-	dir = 6
+/obj/machinery/porta_turret/ship/nt/heavy{
+	dir = 6;
+	id = "skybreaker_turrets"
 	},
 /turf/closed/wall/mineral/titanium/exterior,
 /area/ship/bridge)
@@ -2074,7 +2061,7 @@
 /turf/open/floor/plasteel/tech,
 /area/ship/hallway/central)
 "xF" = (
-/obj/structure/sign/nanotrasen,
+/obj/structure/sign/nanotrasen/vigilitas,
 /turf/closed/wall/mineral/titanium/exterior,
 /area/ship/general/engineering)
 "yc" = (
@@ -2298,7 +2285,7 @@
 /turf/open/floor/plasteel/tech,
 /area/ship/science/robotics)
 "AN" = (
-/obj/structure/sign/nanotrasen,
+/obj/structure/sign/nanotrasen/vigilitas,
 /turf/closed/wall/mineral/titanium/exterior,
 /area/ship/medical)
 "AP" = (
@@ -2443,16 +2430,12 @@
 	dir = 5;
 	layer = 4.1
 	},
-/obj/structure/filingcabinet{
-	pixel_x = -11;
-	pixel_y = 0
-	},
-/obj/structure/filingcabinet{
-	pixel_x = 0;
-	pixel_y = 0
-	},
 /obj/effect/turf_decal/techfloor{
 	dir = 5
+	},
+/obj/structure/filingcabinet/double{
+	pixel_x = -5;
+	layer = 4.2
 	},
 /turf/open/floor/plasteel/tech,
 /area/ship/security)
@@ -2527,7 +2510,6 @@
 /turf/open/floor/carpet/nanoweave/orange,
 /area/ship/security)
 "Fu" = (
-/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/borderfloor/cee,
 /obj/effect/turf_decal/industrial/warning,
 /obj/effect/turf_decal/siding/thinplating/light,
@@ -3043,10 +3025,6 @@
 /turf/open/floor/plasteel/tech,
 /area/ship/security/armory)
 "Kk" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -31;
-	pixel_y = 0
-	},
 /obj/effect/turf_decal/industrial/warning,
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/effect/turf_decal/corner/opaque/ntbluelight{
@@ -3635,10 +3613,10 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/ship/medical)
 "QK" = (
-/obj/machinery/power/shuttle/engine/electric/premium,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/shuttle/engine/electric/tech2,
 /turf/open/floor/plating,
 /area/ship/general/engineering)
 "Ri" = (
@@ -3656,10 +3634,7 @@
 /turf/open/floor/noslip,
 /area/ship/crew/dorm)
 "Rx" = (
-/obj/structure/sign/nanotrasen{
-	pixel_x = 0;
-	pixel_y = -5
-	},
+/obj/structure/sign/nanotrasen/vigilitas,
 /turf/closed/wall/mineral/titanium/exterior,
 /area/ship/science/robotics)
 "Ry" = (
@@ -3791,9 +3766,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ship/security)
 "SZ" = (
-/obj/machinery/porta_turret/ship/nt/pulse{
-	id = "skybreaker_turrets";
-	dir = 5
+/obj/machinery/porta_turret/ship/nt/heavy{
+	dir = 5;
+	id = "skybreaker_turrets"
 	},
 /turf/closed/wall/mineral/titanium/exterior,
 /area/ship/bridge)
@@ -4337,9 +4312,6 @@
 /area/ship/medical)
 "YV" = (
 /obj/machinery/power/port_gen/pacman/super,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/structure/cable,
 /obj/structure/platform/industrial_alt,
 /turf/open/floor/plating,
@@ -5017,11 +4989,11 @@ sm
 sm
 sm
 sm
-sm
+up
 sm
 Xe
 sm
-sm
+up
 sm
 sm
 sm
