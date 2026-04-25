@@ -1,4 +1,3 @@
-/*
 #define JUMP_STATE_OFF 0
 #define JUMP_STATE_CHARGING 1
 #define JUMP_STATE_IONIZING 2
@@ -199,40 +198,38 @@
 		return
 
 	.["calibrating"] = calibrating
-	// [CELADON-ADD] - CELADON_OVERMAP_ARPA - Это вагабонд насрал
+	// ARPA (sensor contacts) -- use display name
 	.["arpa_ships"] = list()
 	var/list/arpobjects = current_ship.check_proximity()
 	var/arpdequeue_pointer = 0
 	while (arpdequeue_pointer++ < arpobjects.len)
 		var/datum/overmap/ship/controlled/object = arpobjects[arpdequeue_pointer]
-		if(!istype(object, /datum/overmap/ship/controlled)) //Not an overmap object, ignore this
+		if(!istype(object, /datum/overmap/ship/controlled))
 			continue
 
 		var/list/cpa_list = calculate_cpa(current_ship, object, TRUE)
 		var/list/other_data = list(
-			name = object.name,
+			name = current_ship.get_display_name(object),
 			brg = cpa_list["brg"],
 			cpa = cpa_list["cpa"],
 			tcpa = cpa_list["tcpa"]
 		)
 		.["arpa_ships"] += list(other_data)
-	// [/CELADON-ADD]
+
 	.["canRename"] = COOLDOWN_FINISHED(current_ship, rename_cooldown)
+	// Radar contacts (otherInfo)
 	.["otherInfo"] = list()
 	var/list/objects = current_ship.get_nearby_overmap_objects(empty_if_src_docked = FALSE)
 	var/dequeue_pointer = 0
 	while (dequeue_pointer++ < objects.len)
 		var/datum/overmap/ship/controlled/object = objects[dequeue_pointer]
-		if(!istype(object, /datum/overmap)) //Not an overmap object, ignore this
+		if(!istype(object, /datum/overmap))
 			continue
 
 		var/available_dock = FALSE
-
-		//Even if its full or incompatible with us, it should still show up.
 		if(object in current_ship.current_overmap.overmap_container[current_ship.x][current_ship.y])
 			available_dock = TRUE
 
-		//Detect any ships in this location we can dock to
 		if(istype(object) && object.shuttle_port)
 			for(var/obj/docking_port/stationary/docking_port as anything in object.shuttle_port.docking_points)
 				if(current_ship.shuttle_port.check_dock(docking_port, silent = TRUE, intention_to_dock = FALSE))
@@ -242,9 +239,10 @@
 		objects |= object.contents
 
 		var/list/other_data = list(
-			name = object.name,
+			name = istype(object, /datum/overmap/ship/controlled) ? current_ship.get_display_name(object) : object.name,
 			candock = available_dock,
-			ref = REF(object)
+			ref = REF(object),
+			custom_label = istype(object, /datum/overmap/ship/controlled) ? (current_ship.known_ships?[REF(object)]?["custom_label"] || "") : ""
 		)
 		.["otherInfo"] += list(other_data)
 
@@ -252,12 +250,8 @@
 	.["y"] = current_ship.y || current_ship.docked_to.y
 	.["docking"] = current_ship.docking
 	.["docked"] = current_ship.docked_to
-	// [CELADON-EDIT] - CELADON_OVERMAP_ARPA - Это вагабонд насрал
-	// .["heading"] = dir2text(current_ship.get_heading()) || "None"
 	.["course"] = "[current_ship.get_alt_heading()]°"
 	.["heading"] = "[current_ship.bow_heading]°"
-	// [/CELADON-EDIT]
-	// .["heading"] = dir2text(current_ship.get_heading()) || "None"	// КОД JOPA
 	.["sector"] = current_ship.current_overmap.name
 	.["speed"] = current_ship.get_speed()
 	.["eta"] = current_ship.get_eta()
@@ -266,9 +260,7 @@
 	.["aiControls"] = allow_ai_control
 	.["burnDirection"] = current_ship.burn_direction
 	.["burnPercentage"] = current_ship.burn_percentage
-	// [CELADON-ADD] - CELADON_OVERMAP_ARPA - Это вагабонд насрал
 	.["rotating"] = current_ship.rotating
-	// [/CELADON-ADD]
 	for(var/datum/weakref/engine in current_ship.shuttle_port.engine_list)
 		var/obj/machinery/power/shuttle/engine/real_engine = engine.resolve()
 		if(!real_engine)
@@ -292,16 +284,18 @@
 				ref = REF(engine)
 			)
 		.["engineInfo"] += list(engine_data)
-	// [CELADON-ADD] - subshuttles fix
-	.["motheroutpost"] = null
-	.["issubshuttle"] = null
 	if(current_ship.source_template.parent_type == /datum/map_template/shuttle/subshuttles)
 		.["issubshuttle"] = "true"
 		current_ship.sensor_range = 2
 		var/datum/overmap/parent_ship = current_ship.docked_to
 		if(parent_ship && parent_ship.docked_to && istype(parent_ship.docked_to.parent_type, /datum/overmap/outpost))
 			.["motheroutpost"] = "true"
-	// [/CELADON-ADD] - subshuttles fix
+		else
+			.["motheroutpost"] = null
+	else
+		.["issubshuttle"] = null
+		.["motheroutpost"] = null
+
 /obj/machinery/computer/helm/ui_static_data(mob/user)
 	. = list()
 	.["isViewer"] = viewer || (!allow_ai_control && issilicon(user))
@@ -311,10 +305,7 @@
 		prefixed = current_ship.name,
 		class = current_ship.source_template.name,
 		mass = current_ship.shuttle_port.turf_count,
-		// [CELADON-EDIT] CELADON_OVERMAP_ARPA - Вага бля
-		// sensor_range = 4
 		sensor_range = current_ship.sensor_range
-		// [/CELADON-EDIT]
 	)
 	.["canFly"] = TRUE
 	.["aiUser"] = issilicon(user)
@@ -331,12 +322,9 @@
 		return
 	. = TRUE
 
-	switch(action) // Universal topics
-		// [CELADON-ADD] - CELADON_OVERMAP_STUFF - Это вагабонд насрал
+	switch(action)
 		if("sensor_increase")
-			//овермап сенсорс максимальная дальность апдейт
 			current_ship.sensor_range = min(current_ship.default_sensor_range, current_ship.sensor_range+1)
-			//овермап сенсорс максимальная дальность апдейт конец
 			update_static_data(usr, ui)
 			current_ship.token.update_screen()
 			return
@@ -345,10 +333,9 @@
 			update_static_data(usr, ui)
 			current_ship.token.update_screen()
 			return
-		// [/CELADON-ADD]
 		if("rename_ship")
 			var/new_name = params["newName"]
-			var/ship_name = (!COOLDOWN_FINISHED(current_ship, rename_prefix_cooldown)) ? "[new_name]" : "[current_ship.source_template.prefix] [new_name]" // [CELADON-ADD] - Показывает актуальное название для корабля.
+			var/ship_name = "[current_ship.source_template.prefix] [new_name]"
 			if(!new_name)
 				return
 			new_name = trim(new_name)
@@ -378,7 +365,6 @@
 			allow_ai_control = !allow_ai_control
 			say(allow_ai_control ? "AI Control has been enabled." : "AI Control is now disabled.")
 			return
-		// [Celadon-ADD] - Signal S.O.S. - mod_celadon\wideband\code\signal.dm
 		if("send_sos")
 			if(!current_ship.SendSos(name = "[current_ship.name]", x = "[current_ship.x || current_ship.docked_to.x]", y = "[current_ship.y || current_ship.docked_to.y]"))
 				if(COOLDOWN_TIMELEFT(current_ship, sendsos_cooldown)/10 != 0)
@@ -386,7 +372,6 @@
 				return
 			current_ship.SendSos(name = "[current_ship.name]", x = "[current_ship.x || current_ship.docked_to.x]", y = "[current_ship.y || current_ship.docked_to.y]")
 			return
-		// [/Celadon-ADD]
 		if("act_overmap")
 			if(SSshuttle.jump_mode > BS_JUMP_CALLED)
 				to_chat(usr, "<span class='warning'>Cannot interact due to bluespace jump preperations!</span>")
@@ -396,6 +381,16 @@
 			if(feedback_text)
 				say(feedback_text)
 			return
+		if("set_custom_label")
+			var/ref = params["ref"]
+			var/new_label = trim(params["label"], MAX_NAME_LEN)
+			var/datum/overmap/target = locate(ref)
+			if(!istype(target, /datum/overmap/ship/controlled))
+				return
+			var/datum/overmap/ship/controlled/controlled_target = target
+			current_ship.set_custom_label(controlled_target, new_label)
+			SStgui.update_uis(src)
+			return TRUE
 
 	if(jump_state != JUMP_STATE_OFF)
 		say("Bluespace Jump in progress. Controls suspended.")
@@ -403,7 +398,6 @@
 
 	if(!current_ship.docked_to && !current_ship.docking)
 		switch(action)
-			// [CELADON-ADD] - CELADON_OVERMAP_STUFF - Это вагабонд насрал
 			if("rotate_left")
 				if(current_ship.rotating == -1)
 					current_ship.rotating = 0
@@ -418,8 +412,6 @@
 				else
 					current_ship.rotating = 1
 				return
-			// [/CELADON-ADD]
-			// if("act_overmap")		// КОД JOPA
 			if("quick_dock")
 				if(SSshuttle.jump_mode > BS_JUMP_CALLED)
 					to_chat(usr, span_warning("Cannot dock due to bluespace jump preperations!"))
@@ -499,16 +491,13 @@
 /obj/machinery/computer/helm/ui_close(mob/user)
 	var/user_ref = REF(user)
 	var/is_living = isliving(user)
-	// Living creature or not, we remove you anyway.
 	concurrent_users -= user_ref
-	// Unregister map objects
 	if(current_ship)
 		user.client?.clear_map(current_ship.token.map_name)
-		if(current_ship.burn_direction > BURN_NONE && !length(concurrent_users) && !viewer && is_living) // If accelerating with nobody else to stop it
+		if(current_ship.burn_direction > BURN_NONE && !length(concurrent_users) && !viewer && is_living)
 			say("Pilot absence detected, engaging acceleration safeties.")
 			current_ship.change_heading(BURN_NONE)
 
-	// Turn off the console
 	if(!length(concurrent_users) && is_living)
 		playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
 		use_power(0)
@@ -588,4 +577,3 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/helm/viewscreen, 17)
 #undef JUMP_STATE_FINALIZED
 #undef JUMP_CHARGE_DELAY
 #undef JUMP_CHARGEUP_TIME
-*/

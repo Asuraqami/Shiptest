@@ -12,6 +12,8 @@
 #include "code/mapgen/PlasmaGenerator.dm"
 #include "code/mapgen/SandGenerator.dm"
 
+#include "code/ship_prefix/ship_prefix_system.dm"
+
 #include "code/ruins/ruin.dm"
 
 #include "code/_path_ruins.dm"

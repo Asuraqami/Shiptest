@@ -414,7 +414,10 @@
 	var/input = stripped_input(user, "Please choose a message to hail the target with.", "Hailing Vessel")
 	if(!input)
 		return
-	priority_announce("[html_decode(input)]", "Outbound Hail to [interact_target]", 'sound/effects/hail.ogg', sender_override = name, zlevel = shuttle_port.virtual_z())
+	// [CELADON-EDIT] - PREFIX_SYSTEM
+	// sender_override = name
+	priority_announce("[html_decode(input)]", "Outbound Hail to [interact_target]", 'sound/effects/hail.ogg', sender_override = real_name, zlevel = shuttle_port.virtual_z())
+	// [/CELADON-EDIT]
 	interact_target.relay_message(user,interact_target, input)
 	deadchat_broadcast(" hailed the <span class='name'>[interact_target.name]</span>: [input]", "<span class='name'>[user.real_name]</span>", user, message_type=DEADCHAT_ANNOUNCEMENT)
 	return
