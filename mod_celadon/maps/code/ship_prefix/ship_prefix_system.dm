@@ -131,40 +131,66 @@
 	if(target == initiator)
 		return "Вы уже знаете свою сигнатуру."
 
+	// Проверка, не занята ли уже консоль дешифровкой
+	if(initiator.active_decrypt_target)
+		return "Консоль уже выполняет дешифровку сигнатуры [initiator.active_decrypt_target.real_name]."
+
 	// Проверка помех на клетке инициатора (включая пристыкованные объекты)
 	var/list/nearby_objects = initiator.get_nearby_overmap_objects(include_docked = TRUE, empty_if_src_docked = FALSE)
 	for(var/datum/overmap/obj in nearby_objects)
 		if(istype(obj, /datum/overmap/outpost) || \
-			istype(obj, /datum/overmap/event/nebula) || \
-			istype(obj, /datum/overmap/event/emp) || \
-			istype(obj, /datum/overmap/event/electric))
+		   istype(obj, /datum/overmap/event/nebula) || \
+		   istype(obj, /datum/overmap/event/emp) || \
+		   istype(obj, /datum/overmap/event/electric))
 			return "Радиопомехи не позволяют запустить дешифровку."
 
-	// Уведомления через консоли
-	initiator.say("Запущена дешифровка сигнатуры [target.real_name]. Подождите 60 секунд...")
-	target.say("Внимание, зафиксировано сканирование сигнатуры кораблём [initiator.real_name].")
+	// Устанавливаем флаг активности
+	initiator.active_decrypt_target = target
 
+	// Находим консоль инициатора
+	var/obj/machinery/computer/helm/init_helm = length(initiator.helms) > 0 ? initiator.helms[1] : null
+	if(init_helm)
+		init_helm.say("Запущена дешифровка сигнатуры [target.real_name]. Подождите 60 секунд...")
+
+	// Уведомляем цель
+	var/obj/machinery/computer/helm/target_helm = length(target.helms) > 0 ? target.helms[1] : null
+	if(target_helm)
+		target_helm.say("Внимание, зафиксировано сканирование сигнатуры кораблём [initiator.real_name].")
+
+	// Блок задержек с проверкой дистанции
 	if(!check_decrypt_proximity(target, initiator))
+		initiator.active_decrypt_target = null
 		return "Цель вышла из радиуса дешифровки."
 	sleep(15 SECONDS)
 	if(!check_decrypt_proximity(target, initiator))
+		initiator.active_decrypt_target = null
 		return "Цель вышла из радиуса дешифровки."
-	initiator.say("Дешифровка сигнатуры [target.real_name] закончится через 45 секунд...")
+	if(init_helm)
+		init_helm.say("Дешифровка сигнатуры [target.real_name] закончится через 45 секунд...")
 	sleep(15 SECONDS)
 	if(!check_decrypt_proximity(target, initiator))
+		initiator.active_decrypt_target = null
 		return "Цель вышла из радиуса дешифровки."
-	initiator.say("Дешифровка сигнатуры [target.real_name] закончится через 30 секунд...")
+	if(init_helm)
+		init_helm.say("Дешифровка сигнатуры [target.real_name] закончится через 30 секунд...")
 	sleep(15 SECONDS)
 	if(!check_decrypt_proximity(target, initiator))
+		initiator.active_decrypt_target = null
 		return "Цель вышла из радиуса дешифровки."
-	initiator.say("Дешифровка сигнатуры [target.real_name] закончится через 15 секунд...")
+	if(init_helm)
+		init_helm.say("Дешифровка сигнатуры [target.real_name] закончится через 15 секунд...")
 	sleep(15 SECONDS)
 	if(!check_decrypt_proximity(target, initiator))
+		initiator.active_decrypt_target = null
 		return "Цель вышла из радиуса дешифровки."
 
+	// Завершение
+	initiator.active_decrypt_target = null
 	initiator.reveal_ship_prefix(target)
-	initiator.say("Сигнатура корабля [target.real_name] успешно дешифрована.")
-	target.say("Сигнатура нашего корабля была дешифрована кораблём [initiator.real_name].")
+	if(init_helm)
+		init_helm.say("Сигнатура корабля [target.real_name] успешно дешифрована.")
+	if(target_helm)
+		target_helm.say("Сигнатура нашего корабля была дешифрована кораблём [initiator.real_name].")
 	return "Сигнатура корабля [target.real_name] успешно дешифрована."
 // Вспомогательная функция проверки дистанции (можно добавить в ship_prefix_system.dm)
 /datum/overmap/ship/controlled/proc/check_decrypt_proximity(datum/overmap/ship/controlled/target, datum/overmap/ship/controlled/initiator)
