@@ -408,6 +408,7 @@
 	to_chat(user, span_danger("How are you doing this with no equipment...?"))
 	return FALSE
 
+// [CELADON-EDIT] - PREFIX_SYSTEM
 /datum/overmap/ship/controlled/do_hail(mob/living/user, datum/overmap/interact_target)
 	if(!interact_target)
 		return "Invalid Target."
@@ -420,7 +421,6 @@
 		display_name = hailed_ship.real_name
 	else
 		display_name = interact_target.name
-	// [CELADON-EDIT] - PREFIX_SYSTEM
 	// sender_override = name
 	priority_announce("[html_decode(input)]", "Outbound Hail to [display_name]", 'sound/effects/hail.ogg', sender_override = real_name, zlevel = shuttle_port.virtual_z())
 	// [/CELADON-EDIT]
@@ -443,6 +443,7 @@
  * * user - The user requesting the options.
  * * requesting_interactor - The overmap datum requesting the options.
  */
+// [CELADON-EDIT] - PREFIX_SYSTEM
 /datum/overmap/ship/controlled/relay_message(mob/living/user, datum/overmap/requesting_interactor, message)
 	var/display_name
 	if(istype(requesting_interactor, /datum/overmap/ship/controlled))
@@ -452,6 +453,7 @@
 		display_name = requesting_interactor.name
 	priority_announce("[html_decode(message)]", "Incoming Hail", 'sound/effects/hail.ogg', sender_override = display_name, zlevel = shuttle_port.virtual_z())
 	return
+// [/CELADON-EDIT]
 
 /**
  * Gets all the available interaction options.
