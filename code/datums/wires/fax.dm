@@ -3,7 +3,7 @@
 	proper_name = "Fax Unit"
 
 /datum/wires/fax/New(atom/holder)
-	wires = list(WIRE_SHOCK, WIRE_SIGNAL, WIRE_THROW,)/ // [CELADON-REMOVE] WIRE_LOADCHECK,
+	wires = list(WIRE_SHOCK, WIRE_SIGNAL, WIRE_THROW,) // [CELADON-REMOVE] WIRE_LOADCHECK,
 	add_duds(1)
 	return ..()
 
@@ -35,8 +35,12 @@
 			machine.visible_to_network = !machine.visible_to_network
 		if(WIRE_THROW)
 			machine.hurl_contents = !machine.hurl_contents
+		/*
+		 [CELADON-REMOVE]
 		if(WIRE_LOADCHECK)
 			machine.allow_exotic_faxes = !machine.allow_exotic_faxes
+		[/CELADON-REMOVE]
+		*/
 
 /datum/wires/fax/on_cut(wire, mend)
 	var/obj/machinery/fax/machine = holder
