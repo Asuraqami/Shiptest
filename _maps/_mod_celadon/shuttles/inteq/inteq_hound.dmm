@@ -1792,12 +1792,10 @@
 /turf/open/floor/carpet/black,
 /area/ship/crew/dorm)
 "MB" = (
-/obj/machinery/power/shuttle/engine/electric{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/shuttle/engine/electric/tech1,
 /turf/open/floor/plating,
 /area/ship/maintenance/starboard)
 "MC" = (
@@ -1995,12 +1993,10 @@
 /turf/open/floor/plasteel/patterned/grid,
 /area/ship/crew)
 "Po" = (
-/obj/machinery/power/shuttle/engine/electric{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/shuttle/engine/electric/tech1,
 /turf/open/floor/plating,
 /area/ship/maintenance/port)
 "Pz" = (

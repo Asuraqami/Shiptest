@@ -47,9 +47,6 @@
 /obj/item/stack/sheet/mineral/plasma/twenty{
 	pixel_y = 7
 	},
-/obj/item/stack/sheet/mineral/plasma/twenty{
-	pixel_y = -6
-	},
 /obj/item/stack/sheet/mineral/plasma/twenty,
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/engineering)
@@ -1242,7 +1239,7 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/ship/medical)
 "uH" = (
-/obj/machinery/porta_turret/ship/nt/pulse{
+/obj/machinery/porta_turret/ship/nt/heavy{
 	dir = 4;
 	id = "darect_turrets"
 	},
@@ -1393,10 +1390,16 @@
 	},
 /obj/item/storage/box/ammo/c46x30mm,
 /obj/item/storage/box/ammo/c46x30mm,
-/obj/item/storage/box/ammo/ferropellet,
 /obj/effect/turf_decal/trimline/opaque/vired/warning{
 	dir = 8
 	},
+/obj/item/storage/box/ammo/ferropellet/hc,
+/obj/item/ammo_box/magazine/gauss,
+/obj/item/ammo_box/magazine/gauss,
+/obj/item/ammo_box/magazine/gauss,
+/obj/item/ammo_box/magazine/gauss,
+/obj/item/storage/box/ammo/ferropellet,
+/obj/item/storage/box/ammo/ferropellet,
 /turf/open/floor/mineral/plastitanium,
 /area/ship/security/armory)
 "yE" = (
@@ -1884,7 +1887,7 @@
 /turf/open/floor/plasteel,
 /area/ship/hallway/central)
 "FR" = (
-/obj/machinery/porta_turret/ship/nt{
+/obj/machinery/porta_turret/ship/nt/heavy{
 	dir = 9;
 	id = "darect_turrets"
 	},
@@ -2427,7 +2430,6 @@
 	},
 /obj/effect/turf_decal/industrial/hatch/yellow,
 /obj/structure/cable/yellow,
-/obj/item/stack/sheet/mineral/plasma/twenty,
 /turf/open/floor/plasteel/tech/techmaint,
 /area/ship/engineering)
 "Qj" = (
@@ -2865,7 +2867,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ship/hallway/central)
 "YT" = (
-/obj/machinery/porta_turret/ship/nt{
+/obj/machinery/porta_turret/ship/nt/heavy{
 	dir = 10;
 	id = "darect_turrets"
 	},

@@ -2047,12 +2047,10 @@
 /turf/open/floor/plating,
 /area/ship/hallway/central)
 "Bw" = (
-/obj/machinery/power/shuttle/engine/electric{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/shuttle/engine/electric/tech1,
 /turf/open/floor/plating/airless,
 /area/ship/engineering)
 "BA" = (
@@ -2791,15 +2789,13 @@
 /turf/open/floor/plasteel/tech,
 /area/ship/cargo)
 "TO" = (
-/obj/machinery/power/shuttle/engine/electric{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/on/layer4{
 	dir = 4
 	},
+/obj/machinery/power/shuttle/engine/electric/tech1,
 /turf/open/floor/plating/airless,
 /area/ship/engineering)
 "Us" = (

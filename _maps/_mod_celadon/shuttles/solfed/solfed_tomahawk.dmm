@@ -145,12 +145,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/darkredfull,
 /area/ship/security/prison)
-"ca" = (
-/obj/structure/sign/number/one{
-	color = "#c48d26"
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ship/crew)
 "cg" = (
 /obj/effect/turf_decal/techfloor{
 	dir = 4
@@ -250,10 +244,10 @@
 	dir = 1;
 	name = "Connector Port (Air Supply)"
 	},
-/obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/turf_decal/techfloor{
 	dir = 10
 	},
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "df" = (
@@ -292,19 +286,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ship/bridge)
-"dm" = (
-/obj/structure/sign/number/one{
-	color = "#c48d26";
-	dir = 1
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ship/storage)
 "ds" = (
 /obj/effect/turf_decal/corner_techfloor_gray/full,
 /obj/machinery/suit_storage_unit/inherit,
 /obj/item/clothing/suit/space/hardsuit/solgov,
-/obj/item/clothing/mask/gas/sechailer,
 /obj/item/tank/jetpack/oxygen/security,
+/obj/item/clothing/mask/gas/solfed,
 /turf/open/floor/plasteel/darkredfull,
 /area/ship/security/prison)
 "dK" = (
@@ -616,20 +603,22 @@
 	dir = 8;
 	color = "#543C30"
 	},
-/obj/structure/fluff/hedge/opaque{
-	pixel_y = 4
-	},
+/obj/structure/fluff/hedge/opaque,
 /obj/effect/turf_decal/spline/fancy/wood/three_quarters{
 	layer = 5
 	},
+/obj/structure/railing/wood{
+	dir = 10
+	},
+/obj/structure/railing/wood{
+	dir = 4
+	},
+/obj/structure/railing/wood{
+	dir = 1;
+	layer = 2
+	},
 /turf/open/floor/wood/ebony,
 /area/ship/hallway/central)
-"iM" = (
-/obj/structure/sign/number/eight{
-	color = "#c48d26"
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ship/crew/law_office)
 "je" = (
 /obj/effect/turf_decal/siding/wood{
 	color = "#4d362c";
@@ -733,12 +722,6 @@
 /obj/structure/sign/flag/solfed/directional/south,
 /turf/open/floor/plasteel/darkredfull,
 /area/ship/security/prison)
-"ky" = (
-/obj/structure/sign/number/nine{
-	color = "#c48d26"
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ship/crew/law_office)
 "kz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1162,7 +1145,6 @@
 	populate = 0;
 	anchored = 1
 	},
-/obj/item/pickaxe/drill/jackhammer,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/under/solgov/formal,
 /obj/item/clothing/under/solgov/dress,
@@ -1184,10 +1166,10 @@
 /obj/effect/turf_decal/corner/opaque/cybersunteal/border{
 	dir = 5
 	},
-/obj/structure/bodycontainer/morgue{
-	dir = 8
-	},
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/vending/wallmed/ship{
+	pixel_x = 27
+	},
 /turf/open/floor/plasteel/white,
 /area/ship/medical)
 "oW" = (
@@ -1212,6 +1194,20 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/ship/storage)
+"pa" = (
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 4
+	},
+/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/machinery/door/poddoor{
+	dir = 4;
+	id = "solc_eng"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/ship/engineering)
 "pi" = (
 /obj/effect/turf_decal/corner/opaque/cybersunteal/bordercorner{
 	dir = 1
@@ -1283,8 +1279,8 @@
 	},
 /obj/machinery/suit_storage_unit/inherit,
 /obj/item/clothing/suit/space/hardsuit/solgov,
-/obj/item/clothing/mask/gas/sechailer,
 /obj/item/tank/jetpack/oxygen/security,
+/obj/item/clothing/mask/gas/solfed,
 /turf/open/floor/plasteel/darkredfull,
 /area/ship/security/prison)
 "qc" = (
@@ -1690,6 +1686,9 @@
 /obj/machinery/power/shuttle/engine/fueled/plasma{
 	dir = 4
 	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/ship/engineering)
 "tC" = (
@@ -1974,7 +1973,6 @@
 /obj/machinery/atmospherics/pipe/simple/orange/hidden{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "wN" = (
@@ -2625,7 +2623,6 @@
 /obj/effect/turf_decal/techfloor{
 	dir = 4
 	},
-/obj/machinery/space_heater,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -2697,7 +2694,9 @@
 /obj/effect/turf_decal/trimline/opaque/solgovblue/filled/line{
 	dir = 1
 	},
-/obj/structure/chair/comfy/blue/corpo/directional/east,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/open/floor/plasteel/telecomms_floor,
 /area/ship/bridge)
 "Ez" = (
@@ -2923,15 +2922,14 @@
 /turf/open/floor/plasteel/telecomms_floor,
 /area/ship/bridge)
 "FU" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 1;
-	name = "Connector Port (Air Supply)"
-	},
 /obj/item/radio/intercom/directional/east,
-/obj/machinery/portable_atmospherics/canister/toxins,
 /obj/effect/turf_decal/techfloor{
 	dir = 6
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "Go" = (
@@ -3148,6 +3146,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/shuttle/engine/electric/tech1{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -3399,11 +3400,12 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 4
 	},
-/obj/structure/window/plasma/reinforced/spawner/west,
-/obj/structure/window/plasma/reinforced/spawner/east,
 /obj/machinery/door/poddoor{
 	dir = 4;
 	id = "solc_eng"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/ship/engineering)
@@ -3527,13 +3529,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/tech,
-/area/ship/storage)
-"Nl" = (
-/obj/structure/sign/number/eight{
-	color = "#c48d26";
-	dir = 1
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ship/storage)
 "Nv" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -3688,16 +3683,15 @@
 /area/ship/hallway/central)
 "OM" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/structure/chair/comfy/blue/corpo/directional/east,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/open/floor/plasteel/telecomms_floor,
 /area/ship/bridge)
 "Py" = (
 /obj/effect/turf_decal/corner/opaque/cybersunteal/border,
 /obj/structure/table/glass,
 /obj/item/storage/case/surgery,
-/obj/machinery/vending/wallmed/ship{
-	pixel_y = -27
-	},
 /turf/open/floor/plasteel/white,
 /area/ship/medical)
 "PS" = (
@@ -3826,6 +3820,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
+/obj/machinery/space_heater,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "Rx" = (
@@ -3844,11 +3839,11 @@
 	},
 /obj/machinery/suit_storage_unit/inherit,
 /obj/item/clothing/suit/space/hardsuit/solgov,
-/obj/item/clothing/mask/gas/sechailer,
 /obj/machinery/light/colored/red{
 	dir = 8
 	},
 /obj/item/tank/jetpack/oxygen/security,
+/obj/item/clothing/mask/gas/solfed,
 /turf/open/floor/plasteel/darkredfull,
 /area/ship/security/prison)
 "RI" = (
@@ -4074,13 +4069,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ship/medical)
-"TH" = (
-/obj/structure/sign/number/four{
-	dir = 1;
-	color = "#c48d26"
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ship/storage)
 "TT" = (
 /obj/structure/cable,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -4261,7 +4249,6 @@
 	populate = 0;
 	anchored = 1
 	},
-/obj/item/pickaxe/drill/jackhammer,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/under/solgov/formal,
 /obj/item/clothing/under/solgov/dress,
@@ -4597,13 +4584,6 @@
 	},
 /turf/open/floor/plasteel/darkredfull,
 /area/ship/security/prison)
-"YN" = (
-/obj/structure/sign/number/nine{
-	dir = 1;
-	color = "#c48d26"
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ship/storage)
 "YV" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -4674,11 +4654,11 @@
 /turf/open/floor/plasteel/tech,
 /area/ship/storage)
 "Zn" = (
-/obj/structure/chair/office/purple{
-	dir = 4
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/ship/medical)
@@ -4814,12 +4794,6 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/ship/bridge)
-"ZP" = (
-/obj/structure/sign/number/four{
-	color = "#c48d26"
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ship/crew/law_office)
 "ZS" = (
 /obj/effect/turf_decal/techfloor/orange{
 	dir = 8
@@ -4830,7 +4804,7 @@
 /obj/machinery/atmospherics/pipe/simple/orange/hidden{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 
@@ -4863,7 +4837,7 @@ Iy
 Iy
 jy
 LX
-LX
+pa
 LX
 jy
 Iy
@@ -5383,12 +5357,12 @@ JQ
 JQ
 JQ
 JQ
-ca
+JQ
 "}
 (30,1,1) = {"
 PX
 Wm
-TH
+Wm
 VF
 Za
 Mp
@@ -5402,12 +5376,12 @@ Li
 ko
 rK
 ER
-ky
+xp
 "}
 (31,1,1) = {"
 PX
 PX
-Nl
+Wm
 Ih
 BC
 WY
@@ -5421,12 +5395,12 @@ vs
 To
 oW
 QB
-iM
+xp
 "}
 (32,1,1) = {"
 PX
 PX
-YN
+Wm
 vK
 BC
 zD
@@ -5440,12 +5414,12 @@ rZ
 JF
 EY
 Wu
-ZP
+xp
 "}
 (33,1,1) = {"
 PX
 PX
-dm
+Wm
 qc
 Lp
 Fu

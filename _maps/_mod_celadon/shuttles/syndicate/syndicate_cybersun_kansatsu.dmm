@@ -1089,10 +1089,10 @@
 /area/ship/cargo)
 "yQ" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/light/directional/west,
 /obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/light/directional/west,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "ze" = (
@@ -1390,13 +1390,13 @@
 /turf/open/floor/plasteel/white,
 /area/ship/hallway/central)
 "FL" = (
-/obj/machinery/atmospherics/components/unary/portables_connector{
-	dir = 4
-	},
 /obj/effect/turf_decal/industrial/warning/corner{
 	dir = 1
 	},
 /obj/machinery/light/directional/west,
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 4
+	},
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "Ge" = (

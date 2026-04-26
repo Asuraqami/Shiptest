@@ -347,7 +347,7 @@
 	icon_state = "0-4"
 	},
 /obj/structure/window/plasma/reinforced/spawner/east,
-/obj/machinery/power/shuttle/engine/electric/premium,
+/obj/machinery/power/shuttle/engine/electric/tech2,
 /turf/open/floor/plating,
 /area/ship/external)
 "ee" = (
@@ -3129,7 +3129,7 @@
 	icon_state = "0-4"
 	},
 /obj/structure/window/plasma/reinforced/spawner/east,
-/obj/machinery/power/shuttle/engine/electric/premium,
+/obj/machinery/power/shuttle/engine/electric/tech2,
 /turf/open/floor/plating,
 /area/ship/general/engineering)
 "Vy" = (

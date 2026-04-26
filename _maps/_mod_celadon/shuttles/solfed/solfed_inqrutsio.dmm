@@ -249,9 +249,6 @@
 /area/ship/hallway/central)
 "eW" = (
 /obj/structure/table/reinforced/plastitaniumglass,
-/obj/item/organ/cyberimp/arm/surgery{
-	pixel_y = 4
-	},
 /obj/machinery/light/directional/east,
 /obj/effect/turf_decal/techfloor{
 	dir = 1;
@@ -260,9 +257,8 @@
 /obj/effect/turf_decal/trimline/opaque/bottlegreen/corner{
 	dir = 8
 	},
-/obj/item/autosurgeon{
-	uses = 1;
-	pixel_y = 11
+/obj/item/storage/case/surgery{
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/ship/hallway/central)
@@ -315,9 +311,6 @@
 /turf/open/floor/plasteel/patterned/brushed,
 /area/ship/general/cargo)
 "gp" = (
-/obj/structure/sign/solfed{
-	pixel_y = 32
-	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/on/layer4{
 	dir = 8
 	},
@@ -457,11 +450,9 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/engineering)
 "jn" = (
-/obj/structure/sign/solfed{
-	pixel_y = -32
-	},
-/turf/open/floor/engine/hull/reinforced,
-/area/ship/external/dark)
+/obj/structure/sign/solfed,
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ship/engineering)
 "jy" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -1771,12 +1762,6 @@
 "Fu" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ship/crew/cryo)
-"Gc" = (
-/obj/structure/sign/solfed{
-	pixel_y = -32
-	},
-/turf/template_noop,
-/area/template_noop)
 "Gm" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2547,11 +2532,9 @@
 /turf/open/floor/engine/hull,
 /area/ship/external/dark)
 "WI" = (
-/obj/structure/sign/solfed{
-	pixel_y = 32
-	},
-/turf/template_noop,
-/area/template_noop)
+/obj/structure/sign/solfed,
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ship/hallway/central)
 "Xg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -2918,7 +2901,7 @@ qK
 "}
 (9,1,1) = {"
 qK
-Le
+jn
 YK
 yk
 De
@@ -2932,7 +2915,7 @@ Le
 BI
 ie
 bp
-Le
+jn
 qK
 qK
 "}
@@ -2953,7 +2936,7 @@ ls
 nw
 jb
 Le
-WI
+qK
 qK
 "}
 (11,1,1) = {"
@@ -3079,7 +3062,7 @@ qK
 (17,1,1) = {"
 qK
 qK
-jn
+vH
 Le
 Le
 Dx
@@ -3260,7 +3243,7 @@ qK
 qK
 qK
 qK
-Gc
+qK
 Fp
 UY
 oA
@@ -3270,7 +3253,7 @@ Kq
 it
 wI
 Fp
-WI
+qK
 qK
 qK
 qK
@@ -3281,7 +3264,7 @@ qK
 qK
 qK
 qK
-Fp
+WI
 eW
 rn
 HM
@@ -3289,7 +3272,7 @@ Id
 YH
 Uk
 sS
-Fp
+WI
 qK
 qK
 qK

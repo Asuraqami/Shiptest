@@ -1220,10 +1220,6 @@
 	pixel_x = -9;
 	pixel_y = 3
 	},
-/obj/item/pinpointer/mineral{
-	pixel_x = 13;
-	pixel_y = 11
-	},
 /obj/item/storage/bag/ore{
 	pixel_y = 2;
 	layer = 2.9;
@@ -2185,10 +2181,6 @@
 	name = "scientist's locker";
 	req_access_txt = "7"
 	},
-/obj/item/pda/scientist{
-	pixel_x = 8;
-	pixel_y = -5
-	},
 /obj/effect/turf_decal/techfloor{
 	dir = 1
 	},
@@ -2541,16 +2533,10 @@
 	pixel_y = -1;
 	pixel_x = 9
 	},
-/obj/item/circuitboard/computer/advanced_camera,
 /obj/effect/turf_decal/techfloor{
 	dir = 8
 	},
 /obj/item/storage/belt/utility/full,
-/obj/item/pda/heads/rd{
-	name = "science director PDA";
-	pixel_x = 9;
-	pixel_y = -1
-	},
 /turf/open/floor/plasteel/tech,
 /area/ship/crew/dorm/commad)
 "wW" = (
@@ -3247,10 +3233,10 @@
 /turf/open/floor/engine/hull/reinforced,
 /area/ship/external/dark)
 "Bw" = (
-/obj/machinery/power/shuttle/engine/electric/premium,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/shuttle/engine/electric,
 /turf/open/floor/plating,
 /area/ship/engineering)
 "Bz" = (
@@ -3272,10 +3258,6 @@
 /obj/item/clothing/glasses/science{
 	pixel_x = 4;
 	pixel_y = 9
-	},
-/obj/item/pda/roboticist{
-	pixel_x = 9;
-	pixel_y = -5
 	},
 /obj/effect/turf_decal/techfloor{
 	dir = 1
@@ -4214,7 +4196,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable,
-/obj/machinery/drill,
 /turf/open/floor/plasteel/patterned/grid/dark,
 /area/ship/cargo)
 "Kh" = (
@@ -4489,7 +4470,6 @@
 /obj/effect/turf_decal/techfloor{
 	dir = 1
 	},
-/obj/item/stack/sheet/mineral/uranium/twenty,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -4498,6 +4478,7 @@
 	name = "fuel closet";
 	desc = "It's a storage unit for uranium fuel."
 	},
+/obj/item/stack/sheet/mineral/uranium/ten,
 /turf/open/floor/plasteel/tech/grid,
 /area/ship/engineering)
 "NG" = (
@@ -4827,28 +4808,9 @@
 	dir = 1
 	},
 /obj/machinery/camera,
-/obj/item/modular_computer/tablet/preset/advanced{
-	icon_state = "tablet-brown"
-	},
 /obj/item/multitool{
 	pixel_x = -9;
 	pixel_y = -5
-	},
-/obj/item/paper/guides/bodycam{
-	pixel_x = 8;
-	pixel_y = -7
-	},
-/obj/item/bodycamera{
-	pixel_y = 5;
-	pixel_x = -9
-	},
-/obj/item/bodycamera{
-	pixel_x = 8;
-	pixel_y = 5
-	},
-/obj/item/bodycamera{
-	pixel_x = 0;
-	pixel_y = 1
 	},
 /turf/open/floor/plasteel/patterned/grid/dark,
 /area/ship/cargo/port)
@@ -5779,7 +5741,9 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 9
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	filled = 0
+	},
 /obj/structure/chair/handrail{
 	dir = 4
 	},
@@ -5848,7 +5812,6 @@
 	pixel_x = -9;
 	pixel_y = 9
 	},
-/obj/item/pda/security,
 /obj/item/clothing/gloves/color/black{
 	pixel_y = -4;
 	pixel_x = -6

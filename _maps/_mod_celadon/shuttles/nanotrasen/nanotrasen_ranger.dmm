@@ -539,7 +539,6 @@
 /area/ship/maintenance/starboard)
 "eP" = (
 /obj/effect/turf_decal/industrial/outline/orange,
-/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/open/floor/plasteel/tech,
 /area/ship/maintenance/port)
 "eT" = (
@@ -4711,7 +4710,6 @@
 /turf/open/floor/plasteel/lightgrey,
 /area/ship/hallway/central)
 "RS" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
 /obj/effect/turf_decal/industrial/outline/orange,
 /obj/effect/decal/cleanable/plasma,
 /turf/open/floor/plasteel/tech,

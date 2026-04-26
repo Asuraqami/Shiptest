@@ -149,7 +149,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/machinery/rnd/server,
 /obj/machinery/atmospherics/pipe/simple/orange/hidden,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
@@ -198,6 +197,10 @@
 	},
 /obj/structure/catwalk/over/plated_catwalk/dark,
 /turf/open/floor/plating,
+/area/ship/engineering)
+"dK" = (
+/obj/machinery/rnd/server,
+/turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "ee" = (
 /obj/machinery/porta_turret/ship/syndicate/ballistic/light{
@@ -845,11 +848,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ship/cargo/port)
 "sc" = (
-/obj/structure/chair/plastic{
-	dir = 4;
-	desc = "a chair of true deities, sitting on it make you feel like a god";
-	name = "Сhair OF GODS"
-	},
 /obj/effect/turf_decal/spline/plain/opaque/syndiered{
 	dir = 8
 	},
@@ -857,6 +855,10 @@
 	pixel_y = 63;
 	pixel_x = -7;
 	id = "kau_turrets"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4;
+	color = "#444547"
 	},
 /turf/open/floor/carpet/black,
 /area/ship/bridge)
@@ -1111,6 +1113,9 @@
 /obj/item/gps,
 /turf/open/floor/plasteel/dark,
 /area/ship/cargo)
+"xF" = (
+/turf/open/floor/plasteel/tech,
+/area/ship/engineering)
 "xG" = (
 /obj/machinery/door/poddoor{
 	id = "KaUCargoHolders2";
@@ -1128,12 +1133,6 @@
 /area/ship/cargo)
 "xK" = (
 /obj/machinery/firealarm/directional/west,
-/obj/structure/closet/secure_closet/wall{
-	icon_state = "sec_wall";
-	req_access_txt = "1";
-	pixel_y = -29;
-	name = "breaching locker"
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
@@ -1160,8 +1159,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/spline/plain/opaque/syndiered,
-/obj/structure/chair/office{
-	dir = 4
+/obj/structure/chair/comfy/shuttle{
+	dir = 4;
+	color = "#444547"
 	},
 /turf/open/floor/carpet/black,
 /area/ship/bridge)
@@ -1410,9 +1410,7 @@
 /obj/effect/turf_decal/atmos/air{
 	color = "#730622"
 	},
-/obj/machinery/atmospherics/pipe/manifold/orange/hidden{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/orange/hidden,
 /turf/open/floor/plasteel/tech,
 /area/ship/engineering)
 "Dr" = (
@@ -2002,8 +2000,9 @@
 /obj/effect/turf_decal/spline/plain/opaque/syndiered{
 	dir = 1
 	},
-/obj/structure/chair/office{
-	dir = 4
+/obj/structure/chair/comfy/shuttle{
+	dir = 4;
+	color = "#444547"
 	},
 /turf/open/floor/carpet/black,
 /area/ship/bridge)
@@ -2777,7 +2776,7 @@ vU
 CX
 eS
 ZL
-ZL
+dK
 eS
 CX
 ib
@@ -2796,7 +2795,7 @@ Sg
 QM
 eS
 pA
-pA
+xF
 eS
 QM
 Sg
