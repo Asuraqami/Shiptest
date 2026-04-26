@@ -5,16 +5,32 @@
  *
  * Can be docked to any other overmap datum that has a valid docking process.
  */
- /*
+
+#define INTERACTION_OVERMAP_IDENTIFY "Identify"
+#define INTERACTION_OVERMAP_SET_MARK "Set Mark"
+#define INTERACTION_OVERMAP_REVEAL_SIGNATURE "Reveal Signature"
+
 /datum/overmap/ship/controlled
 	token_type = /obj/overmap/rendered
 	dock_time = 10 SECONDS
-	interaction_options = list(INTERACTION_OVERMAP_DOCK, INTERACTION_OVERMAP_QUICKDOCK, INTERACTION_OVERMAP_HAIL, INTERACTION_OVERMAP_INTERDICTION)
+	interaction_options = list(
+	INTERACTION_OVERMAP_DOCK,
+	INTERACTION_OVERMAP_QUICKDOCK,
+	INTERACTION_OVERMAP_HAIL,
+	INTERACTION_OVERMAP_INTERDICTION,
+	INTERACTION_OVERMAP_IDENTIFY,
+	INTERACTION_OVERMAP_SET_MARK,
+	INTERACTION_OVERMAP_REVEAL_SIGNATURE
+	)
 
 	// [CELADON-ADD] - OVERMAP SENSORS
 	var/default_sensor_range = 4
 	// [/CELADON-ADD]
-
+	/// Prefix system database (ref -> list(revealed_prefix, custom_label))
+	var/list/known_ships
+	COOLDOWN_DECLARE(broadcast_ident_cooldown)
+	/// Цель текущей активной дешифровки (если идёт процесс)
+	var/datum/overmap/ship/controlled/active_decrypt_target
 	///Vessel estimated thrust per full burn
 	var/est_thrust
 	///Average fuel fullness percentage
@@ -89,19 +105,11 @@
 	///The cooldown for events hitting this ship. Generally used by events with a big consquence and fires slower than normal, like flares
 	COOLDOWN_DECLARE(event_cooldown)
 
-	/// [CELADON-ADD] Таймер, что даёт время на становление пиратами или пацифистами для независимых суден.
-	COOLDOWN_DECLARE(rename_prefix_cooldown)
-	/// [/CELADON-ADD]
-
 /datum/overmap/ship/controlled/Rename(new_name, force = FALSE)
 	var/old_name = name
-	var/full_name = "Error"
-	// [CELADON-ADD] - Возможность сменить префикс корабля для PISV или RSV.
-	if(!COOLDOWN_FINISHED(src, rename_prefix_cooldown))
-		full_name = "[new_name]"
-	else
-		full_name = "[source_template.prefix] [new_name]"
-	// [/CELADON-ADD]
+	// Префикс всегда берётся из шаблона и не может быть изменён игроком
+	var/full_name = "[source_template.prefix] [new_name]"
+
 	if(!force && !COOLDOWN_FINISHED(src, rename_cooldown) || !..(full_name, force))
 		return FALSE
 
@@ -127,7 +135,7 @@
 		if(shuttle_port?.virtual_z() == null)
 			return TRUE
 		priority_announce("The [old_name] has been renamed to the [full_name].", "Docking Announcement", sender_override = full_name, zlevel = shuttle_port?.virtual_z())
-
+	alter_token_appearance()
 	return TRUE
 
 /**
@@ -166,6 +174,7 @@
 	Rename("[source_template]", TRUE)
 #else
 	Rename(pick_list_replacements(SHIP_NAMES_FILE, pick(source_template.name_categories)), TRUE)
+	alter_token_appearance()
 #endif
 	SSovermap.controlled_ships += src
 	current_overmap.controlled_ships += src
@@ -182,15 +191,25 @@
 			outpost.radio.name = "Outpost Security System"
 			var/T = rand(180,360) SECONDS //3-5mins
 			addtimer(CALLBACK(outpost.radio, TYPE_PROC_REF(/obj/item, talk_into), outpost.radio, "На датчиках дальнего действия обнаружен неавторизированный корабль. Всем кораблям рекомендуется быть в боевой готовности.", FREQ_WIDEBAND), T)
-	// При создании корабля даётся 10 минут на то, чтобы стать PISV или RSV.
-	COOLDOWN_START(src, rename_prefix_cooldown, 10 MINUTES)
 
-/datum/overmap/outpost // Это тут потому-что если верхнее перепишется, то нижнее тоже. Срать вечно 🤙
+/datum/overmap/outpost // Это тут потому-что если верхнее перепишется, то нижнее тоже.
 	var/obj/item/radio/intercom/wideband/radio
 	// [/CELADON-ADD]
 
 /datum/overmap/ship/controlled/proc/get_faction()
 	return source_template.faction
+
+/datum/overmap/ship/controlled/show_interaction_menu(mob/living/user, datum/overmap/interact_target)
+	if(!user || !istype(interact_target))
+		return
+	var/list/possible_interactions = interact_target.get_interactions(user, src)
+	if(!possible_interactions)
+		return "There is nothing of interest at [interact_target]."
+	var/display_name = interact_target.name
+	if(istype(interact_target, /datum/overmap/ship/controlled))
+		display_name = get_display_name(interact_target)
+	var/choice = tgui_input_list(usr, "What would you like to do at [display_name]?", "Interact", possible_interactions, timeout = 10 SECONDS)
+	return do_interaction_with(user, interact_target, choice)
 
 /datum/overmap/ship/controlled/Destroy()
 	//SHOULD be called first
@@ -240,7 +259,7 @@
 /datum/overmap/ship/controlled/start_dock(datum/overmap/to_dock, datum/docking_ticket/ticket)
 	log_shuttle("[src] [REF(src)] DOCKING: STARTED REQUEST FOR [to_dock] AT [ticket.target_port]")
 	refresh_engines()
-	priority_announce("Beginning docking procedures. Completion in [dock_time/10] seconds.", "Docking Announcement", sender_override = name, zlevel = shuttle_port.virtual_z())
+	priority_announce("Beginning docking procedures. Completion in [dock_time/10] seconds.", "Docking Announcement", sender_override = real_name, zlevel = shuttle_port.virtual_z())
 	shuttle_port.create_ripples(ticket.target_port, dock_time)
 	shuttle_port.play_engine_sound(shuttle_port, shuttle_port.landing_sound)
 	shuttle_port.play_engine_sound(ticket.target_port, shuttle_port.landing_sound)
@@ -261,7 +280,7 @@
 			SSshuttle.transit_requesters -= shuttle_port
 			SSshuttle.generate_transit_dock(shuttle_port) // We need a port, NOW.
 
-	priority_announce("Beginning undocking procedures. Completion in [dock_time/10] seconds.", "Docking Announcement", sender_override = name, zlevel = shuttle_port.virtual_z())
+	priority_announce("Beginning undocking procedures. Completion in [dock_time/10] seconds.", "Docking Announcement", sender_override = real_name, zlevel = shuttle_port.virtual_z())
 	shuttle_port.play_engine_sound(shuttle_port, shuttle_port.takeoff_sound)
 
 	. = ..()
@@ -574,20 +593,14 @@
 
 
 /datum/overmap/ship/controlled/alter_token_appearance()
+	. = ..()   // Обязательно вызываем родительский метод
 	if(!source_template)
-		return ..()
-	// [CELADON-EDIT] - REMOVE_INFO_CLASSSHIP - Убираем отображение класса корабля при шифт клике
-	/*
-	desc = {"[span_boldnotice("IFF is reporting the following:")]
-	[span_bold("Affiliation: ")][source_template.faction.name]
-	[span_bold("Class: ")][source_template.short_name]
-	[span_bold("Velocity: ")][round(get_speed(), 0.1)] Gm/s"}
-	*/
-	desc = {"[span_boldnotice("IFF is reporting the following:")]
+		return
+	// Переопределяем имя токена, чтобы скрыть префикс на общей карте
+	token.name = real_name ? real_name : name   // если real_name ещё не задан, оставляем полное имя
+	token.desc = {"[span_boldnotice("IFF is reporting the following:")]
 	[span_bold("Affiliation: ")][source_template.faction.name]
 	[span_bold("Velocity: ")][round(get_speed(), 0.1)] Gm/s"}
-	// [/CELADON-EDIT]
-	return ..()
 
 //when bluespace jumping gets moved to its own machine make this NOT look for non-vewscreen helms
 /datum/overmap/ship/controlled/proc/do_jump(obj/item/source, datum/overmap_star_system/new_system, new_x, new_y)
@@ -679,4 +692,17 @@
 /obj/item/key/ship/microwave_act(obj/machinery/microwave/M)
 	well_done = TRUE
 // [/CELADON-ADD]
-*/
+
+/datum/overmap/ship/controlled/handle_interaction_on_target(mob/living/user, datum/overmap/interactor, choice)
+	. = ..()
+	if(choice == INTERACTION_OVERMAP_IDENTIFY)
+		return handle_identification_interaction(interactor)
+	if(choice == INTERACTION_OVERMAP_SET_MARK)
+		if(!istype(src, /datum/overmap/ship/controlled) || !istype(interactor, /datum/overmap/ship/controlled))
+			return "Cannot mark non-ship objects."
+		return handle_set_mark_interaction(user, src, interactor)
+	if(choice == INTERACTION_OVERMAP_REVEAL_SIGNATURE)
+		if(!istype(src, /datum/overmap/ship/controlled) || !istype(interactor, /datum/overmap/ship/controlled))
+			return "Cannot reveal non-ship objects."
+		return handle_reveal_signature(user, src, interactor)
+

@@ -66,10 +66,7 @@ const SharedContent = (_props, context) => {
                     tooltip="Interact"
                     tooltipPosition="left"
                     icon="circle"
-                    disabled={
-                      // I hate this so much
-                      isViewer
-                    }
+                    disabled={isViewer}
                     onClick={() =>
                       act('act_overmap', {
                         ship_to_act: ship.ref,
@@ -86,7 +83,6 @@ const SharedContent = (_props, context) => {
                     icon="anchor"
                     color={'red'}
                     disabled={
-                      // I hate this so much
                       isViewer ||
                       data.speed > 0 ||
                       data.docked ||
@@ -127,7 +123,7 @@ const SharedContent = (_props, context) => {
               disabled={isViewer}
               onClick={() => act('reload_ship')}
             />
-            <Button // [CELADON-ADD] - Signal S.O.S - mod_celadon\wideband\code\signal.dm
+            <Button
               tooltip="Send S.O.S."
               tooltipPosition="left"
               icon="globe"
@@ -152,18 +148,14 @@ const SharedContent = (_props, context) => {
                 tooltip="Decrease Signal Length"
                 tooltipPosition="right"
                 icon="arrow-left"
-				// [CELADON-ADD] - subshuttle fix
-				disabled={data.issubshuttle != null}
-				// [/CELADON-ADD] - subshuttle fix
+                disabled={data.issubshuttle != null}
                 onClick={() => act('sensor_decrease')}
               />
               <Button
                 tooltip="Increase Signal Length"
                 tooltipPosition="right"
                 icon="arrow-right"
-				// [CELADON-ADD] - subshuttle fix
-				disabled={data.issubshuttle != null}
-				// [/CELADON-ADD] - subshuttle fix
+                disabled={data.issubshuttle != null}
                 onClick={() => act('sensor_increase')}
               />
             </Table.Cell>

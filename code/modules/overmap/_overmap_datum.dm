@@ -408,14 +408,23 @@
 	to_chat(user, span_danger("How are you doing this with no equipment...?"))
 	return FALSE
 
+// [CELADON-EDIT] - PREFIX_SYSTEM
 /datum/overmap/ship/controlled/do_hail(mob/living/user, datum/overmap/interact_target)
-	if(!interact_target)	//if(!interact_target || interact_target==src)	// [CELADON-EDIT] - CELADON_OVERMAP - SHIP_HAIL_HIMSELF - Возвращаем фичу на сообщение кораблей самим себе
+	if(!interact_target)
 		return "Invalid Target."
 	var/input = stripped_input(user, "Please choose a message to hail the target with.", "Hailing Vessel")
 	if(!input)
 		return
-	priority_announce("[html_decode(input)]", "Outbound Hail to [interact_target]", 'sound/effects/hail.ogg', sender_override = name, zlevel = shuttle_port.virtual_z())
-	interact_target.relay_message(user,interact_target, input)
+	var/display_name
+	if(istype(interact_target, /datum/overmap/ship/controlled))
+		var/datum/overmap/ship/controlled/hailed_ship = interact_target
+		display_name = hailed_ship.real_name
+	else
+		display_name = interact_target.name
+	// sender_override = name
+	priority_announce("[html_decode(input)]", "Outbound Hail to [display_name]", 'sound/effects/hail.ogg', sender_override = real_name, zlevel = shuttle_port.virtual_z())
+	// [/CELADON-EDIT]
+	interact_target.relay_message(user, interact_target, input)
 	deadchat_broadcast(" hailed the <span class='name'>[interact_target.name]</span>: [input]", "<span class='name'>[user.real_name]</span>", user, message_type=DEADCHAT_ANNOUNCEMENT)
 	return
 
@@ -434,9 +443,17 @@
  * * user - The user requesting the options.
  * * requesting_interactor - The overmap datum requesting the options.
  */
+// [CELADON-EDIT] - PREFIX_SYSTEM
 /datum/overmap/ship/controlled/relay_message(mob/living/user, datum/overmap/requesting_interactor, message)
-	priority_announce("[html_decode(message)]", "Incoming Hail", 'sound/effects/hail.ogg', sender_override = requesting_interactor.name, zlevel = shuttle_port.virtual_z())
+	var/display_name
+	if(istype(requesting_interactor, /datum/overmap/ship/controlled))
+		var/datum/overmap/ship/controlled/controlled_requester = requesting_interactor
+		display_name = controlled_requester.real_name
+	else
+		display_name = requesting_interactor.name
+	priority_announce("[html_decode(message)]", "Incoming Hail", 'sound/effects/hail.ogg', sender_override = display_name, zlevel = shuttle_port.virtual_z())
 	return
+// [/CELADON-EDIT]
 
 /**
  * Gets all the available interaction options.
