@@ -49,6 +49,13 @@ SUBSYSTEM_DEF(economy)
 	var/list/departmental_accounts = list()
 //[/CELADON-ADD]
 
+// [CELADON-ADD] - Faction & Blackmarket Modify
+	// Множители цен для фракционных консолей (тип фракции -> множитель)
+	var/list/faction_price_multipliers = list()
+	// Множитель цен для чёрного рынка
+	var/blackmarket_price_multiplier = 1.0
+// [/CELADON-ADD]
+
 /datum/controller/subsystem/economy/stat_entry(msg)
 	msg += "{"
 	msg += "PH: [physical_money]|"
@@ -76,5 +83,41 @@ SUBSYSTEM_DEF(economy)
 /datum/controller/subsystem/economy/Initialize()
 	for(var/dep_id in department_accounts)
 		new /datum/bank_account/department(dep_id, 0, player_account = FALSE)
+
+	// [CELADON-ADD] - Faction & Blackmarket Modify
+	// Инициализация ценовых множителей для всех фракций
+	for(var/faction_type in subtypesof(/datum/faction))
+		faction_price_multipliers[faction_type] = 1.0
+	// [/CELADON-ADD]
+
 	return 2
 //[/CELADON-ADD]
+
+// [CELADON-ADD] - Faction & Blackmarket Modify
+// Методы для работы с множителями цен фракций
+/datum/controller/subsystem/economy/proc/get_faction_price_multiplier(faction_type)
+	return faction_price_multipliers[faction_type] || 1.0
+
+/datum/controller/subsystem/economy/proc/set_faction_price_multiplier(faction_type, new_value)
+	faction_price_multipliers[faction_type] = max(0.01, new_value)
+	// Обновляем ВСЕ фракционные консоли без фильтрации чтобы избежать ошибок
+	for(var/obj/machinery/computer/cargo/faction/C in world)
+		C.generate_pack_data()
+		SStgui.update_uis(C)
+
+/datum/controller/subsystem/economy/proc/adjust_faction_price_multiplier(faction_type, delta)
+	set_faction_price_multiplier(faction_type, get_faction_price_multiplier(faction_type) + delta)
+
+// Методы для работы с множителем чёрного рынка
+/datum/controller/subsystem/economy/proc/get_blackmarket_price_multiplier()
+	return blackmarket_price_multiplier
+
+/datum/controller/subsystem/economy/proc/set_blackmarket_price_multiplier(new_value)
+	blackmarket_price_multiplier = max(0.01, new_value)
+	// Обновляем все открытые интерфейсы аплинков
+	for(var/obj/item/blackmarket_uplink/U in world)
+		SStgui.update_uis(U)
+
+/datum/controller/subsystem/economy/proc/adjust_blackmarket_price_multiplier(delta)
+	set_blackmarket_price_multiplier(blackmarket_price_multiplier + delta)
+// [/CELADON-ADD]
