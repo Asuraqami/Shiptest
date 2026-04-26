@@ -182,7 +182,10 @@ Possible to do for anyone motivated enough:
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Current projection range: <b>[holo_range]</b> units.")
 		if(caller_history)
-			. += span_notice("The caller history displays the last recieved call to be from: [caller_history].")
+			// [CELADON-EDIT] - Убираем префикс корабля из истории звонков
+			// Original: . += span_notice("The caller history displays the last recieved call to be from: [caller_history].")
+			. += span_notice("The caller history displays the last recieved call to be from: [get_clean_area_name(caller_history)].")
+			// [/CELADON-EDIT]
 
 /obj/machinery/holopad/attackby(obj/item/P, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "holopad_open", "holopad0", P))
@@ -237,7 +240,10 @@ Possible to do for anyone motivated enough:
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		var/list/call_data = list(
-			requester = HC.caller_location,
+			// [CELADON-EDIT] - Отображаем название области без префикса корабля
+			// Original: requester = HC.caller_location,
+			requester = get_clean_area_name(HC.caller_location),
+			// [/CELADON-EDIT]
 			connected = HC.connected_holopad == src ? TRUE : FALSE,
 			ref = REF(HC)
 		)
@@ -274,8 +280,28 @@ Possible to do for anyone motivated enough:
 						if(area)
 							LAZYADD(callnames[area], pad)
 				callnames -= get_area(src)
-				var/result = tgui_input_list(usr, "Choose an area to call", "Holocall", sortNames(callnames))
+
+				// [CELADON-EDIT] - Интерфейс выбора области без префиксов кораблей
+				// Original:
+				// var/result = tgui_input_list(usr, "Choose an area to call", "Holocall", sortNames(callnames))
+				// if(QDELETED(usr) || !result || outgoing_call)
+				// 	return
+				// ...
+				// if(usr.loc == loc)
+				// 	var/input = text2num(params["headcall"])
+				// 	var/headcall = input == 1 ? TRUE : FALSE
+				// 	new /datum/holocall(usr, src, callnames[result], headcall)
+				// [/CELADON-EDIT]
+				var/list/display_callnames = list()
+				for(var/area/ar in callnames)
+					var/clean_name = get_clean_area_name(ar.name)
+					display_callnames[clean_name] = ar
+
+				var/result = tgui_input_list(usr, "Choose an area to call", "Holocall", sortNames(display_callnames))
 				if(QDELETED(usr) || !result || outgoing_call)
+					return
+				var/area/chosen_area = display_callnames[result]
+				if(!chosen_area)
 					return
 				var/interference = SSovermap.get_overmap_interference(src)
 				if(interference > INTERFERENCE_LEVEL_BREAKUP_HOLOPADS)
@@ -284,7 +310,7 @@ Possible to do for anyone motivated enough:
 				if(usr.loc == loc)
 					var/input = text2num(params["headcall"])
 					var/headcall = input == 1 ? TRUE : FALSE
-					new /datum/holocall(usr, src, callnames[result], headcall)
+					new /datum/holocall(usr, src, callnames[chosen_area], headcall)
 					calling = TRUE
 					return TRUE
 			else
@@ -338,7 +364,7 @@ Possible to do for anyone motivated enough:
 		if("hang_up")
 			if(outgoing_call)
 				outgoing_call.Disconnect(src)
-				return TRUE	// [CELADON-ADD] - FIXES_CALL_TO_SHIP
+				return TRUE
 
 /**
  * hangup_all_calls: Disconnects all current holocalls from the holopad
@@ -460,7 +486,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/SetLightsAndPower()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
-	//active_power_usage = initial(active_power_usage) * total_users
 	if(total_users || replay_mode)
 		set_light(2)
 	else
@@ -622,7 +647,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/holopad/proc/record_message(mob/living/speaker,message,language)
 	if(!record_mode)
 		return
-	//make this command so you can have multiple languages in single record
 	if((!disk.record.caller_name || disk.record.caller_name == "Unknown") && istype(speaker))
 		disk.record.caller_name = speaker.name
 	if(!disk.record.language)
@@ -648,8 +672,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/holopad/proc/replay_entry(entry_number)
 	if(!replay_mode)
 		return
-	if (!disk.record.entries.len) // check for zero entries such as photographs and no text recordings
-		return // and pretty much just display them statically untill manually stopped
+	if (!disk.record.entries.len)
+		return
 	if(disk.record.entries.len < entry_number)
 		if(loop_mode)
 			entry_number = 1
@@ -724,6 +748,14 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	pixel_x = -32
 	pixel_y = -32
 	alpha = 100
+
+// [CELADON-ADD] - Вспомогательный прок для удаления префикса корабля из имён областей
+/obj/machinery/holopad/proc/get_clean_area_name(area_name)
+	var/first_space = findtext(area_name, " ")
+	if(first_space)
+		return copytext(area_name, first_space + 1)
+	return area_name
+// [/CELADON-ADD]
 
 #undef HOLOPAD_PASSIVE_POWER_USAGE
 #undef HOLOGRAM_POWER_USAGE

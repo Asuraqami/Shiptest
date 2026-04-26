@@ -3,7 +3,7 @@
 	proper_name = "Fax Unit"
 
 /datum/wires/fax/New(atom/holder)
-	wires = list(WIRE_SHOCK, WIRE_SIGNAL, WIRE_THROW, WIRE_LOADCHECK,)
+	wires = list(WIRE_SHOCK, WIRE_SIGNAL, WIRE_THROW,)/ // [CELADON-REMOVE] WIRE_LOADCHECK,
 	add_duds(1)
 	return ..()
 
@@ -23,7 +23,7 @@
 	status += "A red light is [machine.seconds_electrified ? "blinking" : "off"]."
 	status += "The network light is [machine.visible_to_network ? "on" : "off"]."
 	status += "The output servo is [machine.hurl_contents ? "spinning rapidly" : "on"]."
-	status += "The input servo is [machine.allow_exotic_faxes ? "spinning rapidly" : "on"]."
+	// [CELADON-REMOVE] status += "The input servo is [machine.allow_exotic_faxes ? "spinning rapidly" : "on"]."
 	return status
 
 /datum/wires/fax/on_pulse(wire)
@@ -47,5 +47,6 @@
 			machine.visible_to_network = mend
 		if(WIRE_THROW)
 			machine.hurl_contents = !mend
-		if(WIRE_LOADCHECK)
-			machine.allow_exotic_faxes = !mend
+// [CELADON-REMOVE]
+//		if(WIRE_LOADCHECK)
+//			machine.allow_exotic_faxes = !mend

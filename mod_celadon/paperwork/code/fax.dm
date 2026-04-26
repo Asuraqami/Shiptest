@@ -1,4 +1,3 @@
-/*
 /obj/machinery/fax
 	name = "\improper fax machine"
 	desc = "Bluespace technologies on the application of bureaucracy."
@@ -26,8 +25,6 @@
 	var/visible_to_network = TRUE
 	/// If true we will eject faxes at speed rather than sedately place them into a tray.
 	var/hurl_contents = FALSE
-	/// If true you can fax things which strictly speaking are not paper.
-	var/allow_exotic_faxes = FALSE
 	/// This is where the dispatch and reception history for each fax is stored.
 	var/list/fax_history = list()
 	/// List of types which should always be allowed to be faxed
@@ -38,20 +35,6 @@
 		/obj/item/folder/biscuit,
 		/obj/item/spacecash,
 		/obj/item/documents,
-	)
-	/// List of types which should be allowed to be faxed if hacked
-	var/static/list/exotic_types = list(
-		/obj/item/food/pizzaslice,
-		/obj/item/food/breadslice,
-		/obj/item/food/donkpocket,
-		/obj/item/food/cookie,
-		/obj/item/food/salami,
-		/obj/item/food/cookie/sugar,
-		/obj/item/food/cookie/oatmeal,
-		/obj/item/food/cookie/raisin,
-		/obj/item/food/pancakes,
-		/obj/item/throwing_star,
-		/obj/item/card,
 	)
 	/// Internal radio for announcing over comms
 	var/obj/item/radio/radio
@@ -66,15 +49,13 @@
 		list(fax_name = "Outpost Authority", fax_id = "outpost", color = "orange", emag_needed = FALSE),
 		list(fax_name = "IRMG Mothership", fax_id = "inteq", color = "yellow", emag_needed = FALSE),
 		list(fax_name = "Solarian Confederation Frontier Affairs", fax_id = "solgov", color = "teal", emag_needed = FALSE),
-		list(fax_name = "Roumain Council of Huntsmen", fax_id = "roumain", color = "brown", emag_needed = FALSE),
-		list(fax_name = "Confederated League Leadership", fax_id = "minutemen", color = "blue", emag_needed = FALSE),
-		list(fax_name = "PGF Military High Command", fax_id = "gezena", color = "olive", emag_needed = FALSE),
 		list(fax_name = "Syndicate Coalition Coordination Center", fax_id = "syndicate", color = "red", emag_needed = FALSE),
-		list(fax_name = "Frontiersmen Communications Quartermaster", fax_id = "frontiersmen", color = "black", emag_needed = TRUE),
 		list(fax_name = "Ramzi Clique Overwatch", fax_id = "ramzi", color = "darkred", emag_needed = TRUE)
 	)
 	// should we make our message be important and be recieved in admin faxes
 	var/admin_fax_id
+
+	var/obj/docking_port/mobile/my_port
 
 /obj/machinery/fax/Initialize(mapload)
 	. = ..()
@@ -82,16 +63,16 @@
 	if(!fax_id)
 		fax_id = SSnetworks.make_address()
 	if(fax_name == initial(fax_name) && !admin_fax_id)
-		fax_name = "[get_area_name(src)] Fax Machine"
+		fax_name = get_clean_ship_name()
 	wires = new /datum/wires/fax(src)
 
 	radio = new(src)
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
-	// Override in subtypes // no
 	radio.on = TRUE
 
 /obj/machinery/fax/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
+	my_port = port
 	port.fax_list |= WEAKREF(src)
 
 /obj/machinery/fax/ruin
@@ -122,7 +103,6 @@
 	if(jammed)
 		. += span_notice("Its output port is jammed and needs cleaning.")
 
-
 /obj/machinery/fax/process(seconds_per_tick)
 	if(seconds_electrified > MACHINE_NOT_ELECTRIFIED)
 		seconds_electrified -= seconds_per_tick
@@ -133,49 +113,17 @@
 			return
 	return ..()
 
-/***
- * Emag the device if the panel is open.
- * Emag does not bring you into the frontier network, but makes it visible to you.
- */
-/obj/machinery/fax/emag_act(mob/user)
-	if(!panel_open && !allow_exotic_faxes)
-		balloon_alert(user, "open panel first!")
-		return TRUE
-	if(!(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
-		to_chat(user, span_warning("The screen of the [src] flickers!"))
-
-/**
- * EMP Interaction
- */
-/obj/machinery/fax/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	allow_exotic_faxes = !allow_exotic_faxes
-	visible_message("<span class='warning'>[src] [allow_exotic_faxes ? "starts beeping" : "stops beeping"] ominously[allow_exotic_faxes ? "..." : "."]")
-
-/**
- * Unanchor/anchor
- */
-
 /obj/machinery/fax/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	default_unfasten_wrench(user, tool)
 	return TRUE
 
-/**
- * Open and close the wire panel.
- */
 /obj/machinery/fax/screwdriver_act(mob/living/user, obj/item/screwdriver)
 	. = ..()
 	default_deconstruction_screwdriver(user, icon_state, icon_state, screwdriver)
 	update_icon()
 	return TRUE
 
-/**
- * Using the multi-tool with the panel closed causes the fax network name to be renamed.
- */
 /obj/machinery/fax/multitool_act(mob/living/user, obj/item/I)
 	if(panel_open)
 		return
@@ -184,7 +132,6 @@
 		return
 	if(new_fax_name != fax_name)
 		if(fax_name_exist(new_fax_name))
-			// Being able to set the same name as another fax machine will give a lot of gimmicks for the traitor.
 			if(frontier_network != TRUE && obj_flags != EMAGGED)
 				to_chat(user, span_warning("There is already a fax machine with this name on the network."))
 				return
@@ -207,10 +154,6 @@
 		return
 	return ..()
 
-/**
- * Attempts to clean out a jammed machine using a passed item.
- * Returns true if successful.
- */
 /obj/machinery/fax/proc/clear_jam(obj/item/item, mob/user)
 	if(istype(item, /obj/item/reagent_containers/spray))
 		var/obj/item/reagent_containers/spray/clean_spray = item
@@ -233,27 +176,11 @@
 		return TRUE
 	return FALSE
 
-/**
- * Returns true if an item can be loaded into the fax machine.
- */
 /obj/machinery/fax/proc/can_load_item(obj/item/item)
-	if(!is_allowed_type(item))
-		return FALSE
-	if(!istype(item, /obj/item/stack))
-		return TRUE
-	var/obj/item/stack/stack_item = item
-	return stack_item.amount == 1
+	return is_allowed_type(item) && (!istype(item, /obj/item/stack) || item:amount == 1)
 
-/**
- * Returns true if an item is of a type which can currently be loaded into this fax machine.
- * This list expands if you snip a particular wire.
- */
 /obj/machinery/fax/proc/is_allowed_type(obj/item/item)
-	if(is_type_in_list(item, allowed_types))
-		return TRUE
-	if(!allow_exotic_faxes)
-		return FALSE
-	return is_type_in_list(item, exotic_types)
+	return is_type_in_list(item, allowed_types)
 
 /obj/machinery/fax/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -264,26 +191,25 @@
 
 /obj/machinery/fax/ui_data(mob/user)
 	var/list/data = list()
-	//Record a list of all existing faxes.
 	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
-		if(fax.fax_id == fax_id) //skip yourself
+		if(fax.fax_id == fax_id)
 			continue
-		if(!fax.visible_to_network) //skip invisible fax machines
+		if(!fax.visible_to_network)
 			continue
 		var/list/fax_data = list()
-		fax_data["fax_name"] = fax.fax_name
+		if(admin_fax_id && !fax.admin_fax_id)
+			fax_data["fax_name"] = fax.get_full_name()
+		else
+			fax_data["fax_name"] = fax.fax_name
 		fax_data["fax_id"] = fax.fax_id
 		fax_data["visible"] = fax.visible_to_network
 		fax_data["has_paper"] = !!fax.loaded_item_ref?.resolve()
-		// Hacked doesn't mean on the frontier network.
 		fax_data["frontier_network"] = fax.frontier_network
 		data["faxes"] += list(fax_data)
 
-	// Own data
 	data["fax_id"] = fax_id
 	data["fax_name"] = fax_name
 	data["visible"] = visible_to_network
-	// In this case, we don't care if the fax is hacked or in the syndicate's network. The main thing is to check the visibility of other faxes.
 	data["frontier_network"] = (frontier_network || (obj_flags & EMAGGED))
 	data["has_paper"] = !!loaded_item_ref?.resolve()
 	data["fax_history"] = fax_history
@@ -296,7 +222,6 @@
 		return
 
 	switch(action)
-		// Pulls the paper out of the fax machine
 		if("remove")
 			var/obj/item/loaded = loaded_item_ref?.resolve()
 			if(!loaded)
@@ -354,13 +279,6 @@
 			history_clear()
 			return TRUE
 
-/**
- * Records logs of bureacratic action
- * Arguments:
- * * sent - The object being sent
- * * destination_id - The unique ID of the fax machine
- * * name - The friendly name of the fax machine, but these can be spoofed so the ID is also required
- */
 /obj/machinery/fax/proc/log_fax(obj/item/sent, destination_id, name)
 	if (istype(sent, /obj/item/paper))
 		var/obj/item/paper/sent_paper = sent
@@ -368,21 +286,11 @@
 		return
 	log_game("[usr] has faxed [sent] to [name]/[destination_id].]")
 
-/**
- * The procedure for sending a paper to another fax machine.
- *
- * The object is called inside /obj/machinery/fax to send the thing to another fax machine.
- * The procedure searches among all faxes for the desired fax ID and calls proc/receive() on that fax.
- * If the thing is sent successfully, it returns TRUE.
- * Arguments:
- * * loaded - The object to be sent.
- * * id - The network ID of the fax machine you want to send the item to.
- */
 /obj/machinery/fax/proc/send(atom/movable/loaded, id)
 	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
 		if(fax.fax_id != id)
 			continue
-		if(!fax.visible_to_network) //skip fax machines meant to be invisible
+		if(!fax.visible_to_network)
 			continue
 		if(fax.jammed)
 			do_sparks(5, TRUE, src)
@@ -395,49 +303,23 @@
 		return TRUE
 	return FALSE
 
-/**
- * Procedure for accepting papers from another fax machine.
- *
- * The procedure is called in proc/send() of the other fax. It receives a paper-like object and "prints" it.
- * Arguments:
- * * loaded - The object to be printed.
- * * sender_name - The sender's name, which will be displayed in the message and recorded in the history of operations.
- */
 /obj/machinery/fax/proc/receive(atom/movable/loaded, sender_name, important = FALSE)
 	playsound(src, 'sound/items/poster_being_created.ogg', 20, FALSE)
 	INVOKE_ASYNC(src, PROC_REF(animate_object_travel), loaded, "fax_receive", find_overlay_state(loaded, "receive"))
-	say("Received correspondence from [sender_name].")
+	say("Incoming fax message.")
 	history_add("Receive", sender_name)
 	addtimer(CALLBACK(src, PROC_REF(vend_item), loaded), 1.9 SECONDS)
 
-/**
- * Procedure for animating an object entering or leaving the fax machine.
- * Arguments:
- * * item - The object which is travelling.
- * * animation_state - An icon state to apply to the fax machine.
- * * overlay_state - An icon state to apply as an overlay to the fax machine.
- */
 /obj/machinery/fax/proc/animate_object_travel(obj/item/item, animation_state, overlay_state)
 	icon_state = animation_state
 	var/mutable_appearance/overlay = mutable_appearance(icon, overlay_state)
 	overlays += overlay
 	addtimer(CALLBACK(src, PROC_REF(travel_animation_complete), overlay), 2 SECONDS)
 
-/**
- * Called when the travel animation should end. Reset animation and overlay states.
- * Arguments:
- * * remove_overlay - Overlay to remove.
- */
 /obj/machinery/fax/proc/travel_animation_complete(mutable_appearance/remove_overlay)
 	icon_state = "fax"
 	overlays -= remove_overlay
 
-/**
- * Returns an appropriate icon state to represent a passed item.
- * Arguments:
- * * item - Item to interrogate.
- * * state_prefix - Icon state action prefix to mutate.
- */
 /obj/machinery/fax/proc/find_overlay_state(obj/item/item, state_prefix)
 	if(istype(item, /obj/item/paper))
 		return "[state_prefix]_paper"
@@ -453,30 +335,11 @@
 		return "[state_prefix]_star"
 	return "[state_prefix]_paper"
 
-/**
- * Actually vends an item out of the fax machine.
- * Moved into its own proc to allow a delay for the animation.
- * This will either deposit the item on the fax machine, or throw it if you have hacked a wire.
- * Arguments:
- * * vend - Item to vend from the fax machine.
- */
 /obj/machinery/fax/proc/vend_item(atom/movable/vend)
 	vend.forceMove(drop_location())
 	if(hurl_contents)
 		vend.throw_at(get_edge_target_turf(drop_location(), pick(GLOB.alldirs)), rand(1, 4), EMBED_THROWSPEED_THRESHOLD)
-	if(is_type_in_list(vend, exotic_types) && prob(20))
-		do_sparks(5, TRUE, src)
-		jammed = TRUE
 
-/**
- * A procedure that makes entries in the history of fax transactions.
- *
- * Called to record the operation in the fax history list.
- * Records the type of operation, the name of the fax machine with which the operation was performed, and the station time.
- * Arguments:
- * * history_type - Type of operation. By default, "Send" and "Receive" should be used.
- * * history_fax_name - The name of the fax machine that performed the operation.
- */
 /obj/machinery/fax/proc/history_add(history_type = "Send", history_fax_name)
 	var/list/history_data = list()
 	history_data["history_type"] = history_type
@@ -484,30 +347,15 @@
 	history_data["history_time"] = station_time_timestamp()
 	fax_history += list(history_data)
 
-/// Clears the history of fax operations.
 /obj/machinery/fax/proc/history_clear()
 	fax_history = null
 
-/**
- * Checks fax names for a match.
- *
- * Called to check the new fax name against the names of other faxes to prevent the use of identical names.
- * Arguments:
- * * new_fax_name - The text of the name to be checked for a match.
- */
 /obj/machinery/fax/proc/fax_name_exist(new_fax_name)
 	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
 		if (fax.fax_name == new_fax_name)
 			return TRUE
 	return FALSE
 
-/**
- * Attempts to shock the passed user, returns true if they are shocked.
- *
- * Arguments:
- * * user - the user to shock
- * * chance - probability the shock happens
- */
 /obj/machinery/fax/proc/shock(mob/living/user, chance)
 	if(!istype(user) || machine_stat & (BROKEN|NOPOWER))
 		return FALSE
@@ -517,9 +365,31 @@
 	var/check_range = TRUE
 	return electrocute_mob(user, get_area(src), src, 0.7, check_range)
 
-/obj/machinery/fax/frontiersmen
-	frontier_network = TRUE
-	visible_to_network = FALSE
+/*
+Возвращает имя корабля без префикса, используя real_name из порта
+или обрезая префикс из имени области
+*/
+/obj/machinery/fax/proc/get_clean_ship_name()
+	if(my_port?.current_ship)
+		var/datum/overmap/ship/controlled/ship = my_port.current_ship
+		if(ship.real_name)
+			return ship.real_name
+	var/area_name = get_area_name(src)
+	var/first_space = findtext(area_name, " ")
+	if(first_space)
+		return copytext(area_name, first_space + 1)
+	return area_name
+
+/*
+Возвращает полное имя корабля с префиксом для админского отображения
+*/
+/obj/machinery/fax/proc/get_full_name()
+	if(my_port?.current_ship)
+		var/datum/overmap/ship/controlled/ship = my_port.current_ship
+		if(ship.real_name && ship.source_template?.prefix)
+			return "[ship.source_template.prefix] [ship.real_name]"
+	return get_area_name(src)
+
 
 /obj/machinery/fax/ramzi
 	frontier_network = TRUE
@@ -528,58 +398,31 @@
 /obj/machinery/fax/inteq
 	special_networks = list(
 		list(fax_name = "Outpost Authority", fax_id = "outpost", color = "orange", emag_needed = FALSE),
-		list(fax_name = "IRMG Mothership", fax_id = "inteq", color = "yellow", emag_needed = FALSE),
-		list(fax_name = "Frontiersmen Communications Quartermaster", fax_id = "frontiersmen", color = "black", emag_needed = TRUE)
-	)
-
-/obj/machinery/fax/clip
-	special_networks = list(
-		list(fax_name = "Outpost Authority", fax_id = "outpost", color = "orange", emag_needed = FALSE),
-		list(fax_name = "Confederated League Leadership", fax_id = "minutemen", color = "blue", emag_needed = FALSE),
-		list(fax_name = "Frontiersmen Communications Quartermaster", fax_id = "frontiersmen", color = "black", emag_needed = TRUE)
+		list(fax_name = "IRMG Mothership", fax_id = "inteq", color = "yellow", emag_needed = FALSE)
 	)
 
 /obj/machinery/fax/indie
 	special_networks = list(
-		list(fax_name = "Outpost Authority", fax_id = "outpost", color = "orange", emag_needed = FALSE),
-		list(fax_name = "Frontiersmen Communications Quartermaster", fax_id = "frontiersmen", color = "black", emag_needed = TRUE)
+		list(fax_name = "Outpost Authority", fax_id = "outpost", color = "orange", emag_needed = FALSE)
 	)
 
 /obj/machinery/fax/nanotrasen
 	special_networks = list(
 		list(fax_name = "Outpost Authority", fax_id = "outpost", color = "orange", emag_needed = FALSE),
-		list(fax_name = "Nanotrasen Central Command", fax_id = "nanotrasen", color = "green", emag_needed = FALSE),
-		list(fax_name = "Frontiersmen Communications Quartermaster", fax_id = "frontiersmen", color = "black", emag_needed = TRUE)
+		list(fax_name = "Nanotrasen Central Command", fax_id = "nanotrasen", color = "green", emag_needed = FALSE)
 	)
 
 /obj/machinery/fax/syndicate
 	special_networks = list(
 		list(fax_name = "Outpost Authority", fax_id = "outpost", color = "orange", emag_needed = FALSE),
-		list(fax_name = "Syndicate Coalition Coordination Center", fax_id = "syndicate", color = "red", emag_needed = FALSE),
-		list(fax_name = "Frontiersmen Communications Quartermaster", fax_id = "frontiersmen", color = "black", emag_needed = TRUE)
+		list(fax_name = "Syndicate Coalition Coordination Center", fax_id = "syndicate", color = "red", emag_needed = FALSE)
 	)
 
 /obj/machinery/fax/solgov
 	special_networks = list(
 		list(fax_name = "Outpost Authority", fax_id = "outpost", color = "orange", emag_needed = FALSE),
-		list(fax_name = "Solarian Confederation Frontier Affairs", fax_id = "solgov", color = "teal", emag_needed = FALSE),
-		list(fax_name = "Frontiersmen Communications Quartermaster", fax_id = "frontiersmen", color = "black", emag_needed = TRUE)
+		list(fax_name = "Solarian Confederation Frontier Affairs", fax_id = "solgov", color = "teal", emag_needed = FALSE)
 	)
-
-/obj/machinery/fax/roumain
-	special_networks = list(
-		list(fax_name = "Outpost Authority", fax_id = "outpost", color = "orange", emag_needed = FALSE),
-		list(fax_name = "Roumain Council of Huntsmen", fax_id = "roumain", color = "brown", emag_needed = FALSE),
-		list(fax_name = "Frontiersmen Communications Quartermaster", fax_id = "frontiersmen", color = "black", emag_needed = TRUE)
-	)
-
-/obj/machinery/fax/pgf
-	special_networks = list(
-		list(fax_name = "Outpost Authority", fax_id = "outpost", color = "orange", emag_needed = FALSE),
-		list(fax_name = "PGF Military High Command", fax_id = "gezena", color = "olive", emag_needed = FALSE),
-		list(fax_name = "Frontiersmen Communications Quartermaster", fax_id = "frontiersmen", color = "black", emag_needed = TRUE)
-	)
-
 
 /obj/machinery/fax/admin
 	name = "Central Command Fax Machine"
@@ -608,30 +451,8 @@
 	fax_name = "IRMG Mothership"
 	admin_fax_id = "inteq"
 
-/obj/machinery/fax/admin/minutemen
-	name = "CLIP HiComm Fax Machine"
-	fax_name = "Confederated League Leadership"
-	admin_fax_id = "minutemen"
-
-/obj/machinery/fax/admin/roumain
-	name = "Huntsman Council Fax Machine"
-	fax_name = "Saint-Roumain Council of Huntsmen"
-	admin_fax_id = "roumain"
-
-/obj/machinery/fax/admin/pgf
-	name = "PGF Military High Command Fax Machine"
-	fax_name = "PGF Military High Command"
-	admin_fax_id = "gezena"
-
-/obj/machinery/fax/admin/frontiersmen
-	name = "old fax machine"
-	fax_name = "Frontiersmen Communications Quartermaster"
-	admin_fax_id = "frontiersmen"
-	frontier_network = TRUE
-
 /obj/machinery/fax/admin/ramzi
 	name = "rusty fax machine"
 	fax_name = "Ramzi Communications Quartermaster"
 	admin_fax_id = "ramzi"
 	frontier_network = TRUE
-*/

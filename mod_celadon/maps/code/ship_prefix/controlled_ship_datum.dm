@@ -129,7 +129,9 @@
 
 	for(var/datum/weakref/stupid_fax in shuttle_port?.fax_list)
 		var/obj/machinery/fax/our_fax = stupid_fax.resolve()
-		our_fax.fax_name = "[get_area_name(our_fax)] Fax Machine"
+		if(!our_fax || our_fax.admin_fax_id)
+			continue // Не трогаем админские факсы
+		our_fax.fax_name = our_fax.get_clean_ship_name()
 	if(!force)
 		COOLDOWN_START(src, rename_cooldown, 5 MINUTES)
 		if(shuttle_port?.virtual_z() == null)

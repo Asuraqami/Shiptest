@@ -4080,7 +4080,6 @@
 	pixel_x = -10;
 	pixel_y = 11
 	},
-/obj/machinery/fax/admin/frontiersmen,
 /obj/structure/fluff/paper/stack{
 	dir = 5;
 	pixel_y = 25;
@@ -16803,7 +16802,6 @@
 /area/centcom/ferry)
 "Wm" = (
 /obj/structure/table/wood,
-/obj/machinery/fax/admin/roumain,
 /turf/open/floor/wood/mahogany,
 /area/centcom)
 "Wn" = (
