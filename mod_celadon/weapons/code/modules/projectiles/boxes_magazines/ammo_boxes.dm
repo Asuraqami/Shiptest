@@ -2,7 +2,6 @@
 [*] - отсутствуют.
 [-] - отключены.
 
-> 5.56x45mm
 > .308
 > 8x58
 > 410x76mm
@@ -10,68 +9,168 @@ Resprite
 > .308
 > 5.56x42
 > 7.62x40
-MARK: 5.56x45
 */
 
-//Коробки 5.56x45mm, плюс стандартная коробка так как ее нету в основном коде
+/*
+MARK: BULLET STACK IN BOX
+Чтобы не срать в кор код где я меняю циферку 4 на циферку 7, заливаю сюда переопределение количества горстей патронов в коробке, чтобы избавить игроков от раздражающей дрочни с менеджементом инвентаря.
+Единая таблица: тип_коробки -> список(тип_стопки, количество_горстей)
+*/
 
-/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_45
-	ammo_type = /obj/item/ammo_casing/a556_45
-	max_ammo = 15
+/obj/item/storage/box/ammo/var/static/list/ammo_box_spawn_config = list(
+	// Gauss
+	/obj/item/storage/box/ammo/ferropellet        = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/ferropellet, 7),
+	/obj/item/storage/box/ammo/ferropellet/hc     = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/ferropellet/hc, 7),
+	/obj/item/storage/box/ammo/ferroslug          = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/ferroslug, 7),
+	/obj/item/storage/box/ammo/ferroslug/hc       = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/ferroslug/hc, 7),
+	/obj/item/storage/box/ammo/ferrolance         = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/ferrolance, 7),
+	/obj/item/storage/box/ammo/ferrolance/hc      = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/ferrolance/hc, 7),
 
-/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_45/a856
-	ammo_type = /obj/item/ammo_casing/a556_45/a856
-	max_ammo = 15
+	// 8x50mmR
+	/obj/item/storage/box/ammo/a8_50r             = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a8_50r, 7),
+	/obj/item/storage/box/ammo/a8_50r/hp          = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a8_50r/hp, 7),
+	/obj/item/storage/box/ammo/a8_50r/match       = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a8_50r/match, 7),
+	/obj/item/storage/box/ammo/a8_50r/trac        = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a8_50r/trac, 7),
 
-/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_45/m903
-	ammo_type = /obj/item/ammo_casing/a556_45/m903
-	max_ammo = 15
+	// 5.56x42mm CLIP
+	/obj/item/storage/box/ammo/a556_42            = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_42, 7),
+	/obj/item/storage/box/ammo/a556_42/hp         = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_42/hp, 7),
+	/obj/item/storage/box/ammo/a556_42/ap         = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_42/ap, 7),
 
-/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_45/surplus
-	ammo_type = /obj/item/ammo_casing/a556_45/surplus
-	max_ammo = 15
+	// 7.62x40mm CLIP
+	/obj/item/storage/box/ammo/a762_40            = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a762_40, 7),
+	/obj/item/storage/box/ammo/a762_40/hp         = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a762_40/hp, 7),
+	/obj/item/storage/box/ammo/a762_40/ap         = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a762_40/ap, 7),
+	/obj/item/storage/box/ammo/a762_40/rubber     = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a762_40/rubber, 7),
+	/obj/item/storage/box/ammo/a762_40/inteq      = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a762_40, 7),
+	/obj/item/storage/box/ammo/a762_40/ap/inteq   = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a762_40/ap, 7),
+	/obj/item/storage/box/ammo/a762_40/hp/inteq   = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a762_40/hp, 7),
+	/obj/item/storage/box/ammo/a762_40/rubber/inteq = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a762_40/rubber, 7),
 
-/obj/item/storage/box/ammo/a556_box
-	name = "ammo box (5.56x45mm)"
-	desc = "A box of standard 5.56x45mm ammo."
-	icon = 'mod_celadon/_storage_icons/icons/items/weapons/ammo/ammo_boxes.dmi'
-	icon_state = "a556_45box_big"
-/obj/item/storage/box/ammo/a556_box/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_45 = 4)
-	generate_items_inside(items_inside,src)
+	// .308
+	/obj/item/storage/box/ammo/a308               = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a308, 7),
+	/obj/item/storage/box/ammo/a308/hp            = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a308/hp, 7),
+	/obj/item/storage/box/ammo/a308/ap            = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a308/ap, 7),
+	/obj/item/storage/box/ammo/a308/inteq         = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a308, 7),
 
-/obj/item/storage/box/ammo/a556_box/a856
-	name = "ammo box (5.56x45mm EP)"
-	desc = "A box of 5.56x45mm enhanced-performance ammo."
-	icon_state = "a556_45box_big-ep"
-/obj/item/storage/box/ammo/a556_box/a856/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_45/a856 = 4)
-	generate_items_inside(items_inside,src)
+	// .299 Eoehoma Caseless
+	/obj/item/storage/box/ammo/c299               = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c299, 7),
 
-/obj/item/storage/box/ammo/a556_box/m903
-	name = "ammo box (5.56x45mm AP)"
-	desc = "A box of 5.56x45mm armour-piercing ammo."
-	icon_state = "a556_45box_big-ap"
-/obj/item/storage/box/ammo/a556_box/m903/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_45/m903 = 4)
-	generate_items_inside(items_inside,src)
+	// 12 gauge
+	/obj/item/storage/box/ammo/a12g_buckshot      = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/shotgun/buckshot, 7),
+	/obj/item/storage/box/ammo/a12g_slug          = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/shotgun/slug, 7),
+	/obj/item/storage/box/ammo/a12g_beanbag       = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/shotgun/beanbag, 7),
+	/obj/item/storage/box/ammo/a12g_rubbershot    = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/shotgun/rubber, 7),
+	/obj/item/storage/box/ammo/a12g_blank         = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/shotgun/blank, 7),
+	/obj/item/storage/box/ammo/pulseslug          = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/shotgun/pulseslug, 7),
+	/obj/item/storage/box/ammo/a12g_dart          = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/shotgun/dart, 7),
 
-/obj/item/storage/box/ammo/a556_box/surplus
-	name = "surplus ammo box (5.56x45mm)"
-	desc = "A box of standard 5.56x45mm ammo."
-	icon = 'mod_celadon/_storage_icons/icons/items/weapons/ammo/ammo.dmi'
-	icon_state = "a556box_surplus"
-/obj/item/storage/box/ammo/a556_box/surplus/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_45/surplus = 4)
-	generate_items_inside(items_inside,src)
+	// 4.6x30mm
+	/obj/item/storage/box/ammo/c46x30mm           = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c46x30mm, 7),
+	/obj/item/storage/box/ammo/c46x30mm/ap        = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c46x30mm/ap, 7),
+	/obj/item/storage/box/ammo/c46x30mm/hp        = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c46x30mm/hp, 7),
+	/obj/item/storage/box/ammo/c46x30mm/rubber    = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c46x30mm/rubber, 7),
+	/obj/item/storage/box/ammo/c46x30mm/tesla     = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c46x30mm/tesla, 7),
 
-//
+	// 5.56mm HITP
+	/obj/item/storage/box/ammo/c556mm             = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c556mm, 7),
+	/obj/item/storage/box/ammo/c556mm_surplus     = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c556mm/surplus, 7),
+	/obj/item/storage/box/ammo/c556mm_ap          = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c556mm/ap, 7),
+	/obj/item/storage/box/ammo/c556mm_hp          = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c556mm/hp, 7),
+	/obj/item/storage/box/ammo/c556mm_rubber      = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c556mm/rubbershot, 7),
+
+	// 5.7x39mm
+	/obj/item/storage/box/ammo/c57x39             = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c57x39, 7),
+	/obj/item/storage/box/ammo/c57x39/hp          = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c57x39/hp, 7),
+	/obj/item/storage/box/ammo/c57x39/ap          = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c57x39/ap, 7),
+	/obj/item/storage/box/ammo/c57x39/rubber      = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c57x39/rubber, 7),
+
+	// Sniper
+	/obj/item/storage/box/ammo/a50box             = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/p50, 7),
+	/obj/item/storage/box/ammo/a858               = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a858, 7),
+	/obj/item/storage/box/ammo/a300               = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a300, 7),
+	/obj/item/storage/box/ammo/a300/trac          = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a300/trac, 2),
+	/obj/item/storage/box/ammo/a65clip            = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a65clip, 7),
+	/obj/item/storage/box/ammo/a65clip/trac       = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a65clip/trac, 2),
+
+	// Foam darts
+	/obj/item/storage/box/ammo/foam_darts         = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/foam_darts, 7),
+	/obj/item/storage/box/ammo/foam_darts/riot    = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/foam_darts/riot, 7),
+
+	// Pistol calibers
+	/obj/item/storage/box/ammo/c10mm              = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c10mm, 7),
+	/obj/item/storage/box/ammo/c10mm_surplus      = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c10mm/surplus, 7),
+	/obj/item/storage/box/ammo/c10mm_ap           = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c10mm/ap, 7),
+	/obj/item/storage/box/ammo/c10mm_hp           = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c10mm/hp, 7),
+	/obj/item/storage/box/ammo/c10mm_rubber       = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c10mm/rubber, 7),
+
+	/obj/item/storage/box/ammo/c9mm               = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c9mm, 7),
+	/obj/item/storage/box/ammo/c9mm_surplus       = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c9mm/surplus, 7),
+	/obj/item/storage/box/ammo/c9mm_ap            = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c9mm/ap, 7),
+	/obj/item/storage/box/ammo/c9mm_hp            = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c9mm/hp, 7),
+	/obj/item/storage/box/ammo/c9mm_rubber        = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c9mm/rubber, 7),
+
+	/obj/item/storage/box/ammo/c45                = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c45, 7),
+	/obj/item/storage/box/ammo/c45_surplus        = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c45/surplus, 7),
+	/obj/item/storage/box/ammo/c45_ap             = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c45/ap, 7),
+	/obj/item/storage/box/ammo/c45_hp             = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c45/hp, 7),
+	/obj/item/storage/box/ammo/c45_rubber         = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c45/rubber, 7),
+
+	/obj/item/storage/box/ammo/c22lr              = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c22lr, 7),
+	/obj/item/storage/box/ammo/c22lr/ap           = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c22lr/ap, 7),
+	/obj/item/storage/box/ammo/c22lr/hp           = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c22lr/hp, 7),
+	/obj/item/storage/box/ammo/c22lr/rubber       = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c22lr/rubber, 7),
+
+	/obj/item/storage/box/ammo/a357               = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a357, 7),
+	/obj/item/storage/box/ammo/a357_match         = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a357/match, 7),
+	/obj/item/storage/box/ammo/a357_hp            = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a357/hp, 7),
+
+	/obj/item/storage/box/ammo/a4570              = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a4570, 7),
+	/obj/item/storage/box/ammo/a4570_match        = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a4570/match, 7),
+	/obj/item/storage/box/ammo/a4570_hp           = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a4570/hp, 7),
+	/obj/item/storage/box/ammo/a4570_explosive    = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a4570/explosive, 7),
+
+	/obj/item/storage/box/ammo/c38                = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c38, 7),
+	/obj/item/storage/box/ammo/c38_surplus        = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c38/surplus, 7),
+	/obj/item/storage/box/ammo/c38_hotshot        = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c38/hotshot, 7),
+	/obj/item/storage/box/ammo/c38_iceblox        = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/c38/iceblox, 7),
+
+	/obj/item/storage/box/ammo/a44roum            = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a44roum, 7),
+	/obj/item/storage/box/ammo/a44roum_rubber     = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a44roum/rubber, 7),
+	/obj/item/storage/box/ammo/a44roum_hp         = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a44roum/hp, 7),
+
+	// CELADON-ADD коробки
+	/obj/item/storage/box/ammo/a556_box/surplus   = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a556_45/surplus, 7),
+	/obj/item/storage/box/ammo/a308/rubber        = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a308/rubber, 7),
+	/obj/item/storage/box/ammo/a308/surplus       = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a308/surplus, 7),
+	/obj/item/storage/box/ammo/a410_ammo_box      = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a410, 7),
+	/obj/item/storage/box/ammo/a410_ammo_box/slug     = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a410/slug, 7),
+	/obj/item/storage/box/ammo/a410_ammo_box/flechette = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/a410/flechette, 7),
+	/obj/item/storage/box/ammo/x762_54            = list(/obj/item/ammo_box/magazine/ammo_stack/prefilled/x762_54, 7),
+)
+
+/obj/item/storage/box/ammo/Initialize(mapload)
+	. = ..()
+	var/list/config = ammo_box_spawn_config[type]
+	if(!config)
+		return
+	var/stack_type = config[1]
+	var/amount = config[2]
+	// Удаляем всё что определялось в кор-коде
+	for(var/obj/item/I in contents)
+		qdel(I)
+	// Наполняем правильными горстями
+	for(var/i in 1 to amount)
+		new stack_type(src)
+	update_icon()
+
+/*
+=========================================
+CELADON LEGACY
+=========================================
+*/
+
 // MARK: .308
-//
 
 //коробки патроны 308 калибра - на данный момент эндгейм патроны , огромный урон , огромное пробитие , высокая цена
 
@@ -105,9 +204,7 @@ MARK: 5.56x45
 	max_ammo = 10
 
 
-//
 // MARK: 410x76
-//
 
 /obj/item/ammo_box/magazine/ammo_stack/prefilled/a410
 	icon = 'mod_celadon/_storage_icons/icons/items/weapons/saiga_bullet.dmi'
@@ -155,9 +252,7 @@ MARK: 5.56x45
 	generate_items_inside(items_inside,src)
 
 // MARK: 7.62X54mm R
-//
-//     7.62x54mmR
-//
+
 /obj/item/ammo_box/magazine/ammo_stack/prefilled/x762_54
 	icon = 'mod_celadon/_storage_icons/icons/items/weapons/svd_bullet.dmi'
 	ammo_type = /obj/item/ammo_casing/x762_54
@@ -201,9 +296,6 @@ MARK: 5.56x45
 /obj/item/storage/box/ammo/a556_42
 	icon = 'mod_celadon/_storage_icons/icons/items/weapons/ammo/ammo_boxes.dmi'
 	icon_state = "a556_42box_big"
-
-/obj/item/storage/box/ammo/a556_box/m903
-	icon_state = "a556_45box_big-ap"
 
 // MARK: 7.62x40
 
