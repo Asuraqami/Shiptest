@@ -1,13 +1,3 @@
-/*
-/obj/machinery/power/shuttle/engine/electric
-После пра оффов эффективность двигателя стала зависеть от деталей внутри https://github.com/shiptest-ss13/Shiptest/pull/5441
-У премиумных двигателей т3 детали, но обычная плата. Имеют в стоке т3, т.е. у них 16 траста
-В стоке сейчас у обычных ионных thrust = 4
-С т3 деталями у обычного ионного thrust = 12
-В целом, т2 и т3 не встречаются, а их никто нормально не балансил в РнД, но чтобы их забалансить нужно трогать все РнД.
-Описанное выше,является комментариями Ерринга.
-*/
-
 //MARK: Electricity
 
 /obj/machinery/power/shuttle/engine/electric
@@ -72,9 +62,9 @@
 	engine_type = "plasma"  // Явно указываем, что это плазменный двигатель
 
 /obj/machinery/power/shuttle/engine/fueled/plasma/plasma_thrust(percentage = 100, deltatime)
-	. = ..()  // Вызов родительского метода, если он существует
+	. = ..()
 	var/obj/machinery/atmospherics/components/unary/shuttle/heater/resolved_heater = attached_heater?.resolve()
-	var/true_percentage = min(resolved_heater.return_gas() / fuel_use , percentage / 100)  //Выбираем меньшее доступное значение , запрещаем летать на пустом баке
+	var/true_percentage = min(resolved_heater.return_gas() / fuel_use , percentage / 100)  // Выбираем меньшее доступное значение , запрещаем летать на пустом баке
 	return thrust * true_percentage
 
 /obj/machinery/power/shuttle/engine/fueled/expulsion
